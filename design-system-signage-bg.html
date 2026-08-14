@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — Signage BPR Bank Gresik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+/* ============================================================
+   DESIGN SYSTEM — SIGNAGE BPR BANK GRESIK
+   Version 1.0 · Agustus 2026
+   ============================================================ */
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+/* ── CSS Custom Properties (Design Tokens) ──────────────── */
+:root {
+  /* --- Color: Brand Blue --- */
+  --blue-950: #020E1F;
+  --blue-900: #042C53;
+  --blue-800: #0C447C;
+  --blue-700: #185FA5;
+  --blue-600: #2176C7;
+  --blue-500: #378ADD;
+  --blue-400: #5DA3E8;
+  --blue-300: #85B7EB;
+  --blue-200: #B5D4F4;
+  --blue-100: #D6E9FA;
+  --blue-50:  #EEF6FD;
+
+  /* --- Color: Gold Accent --- */
+  --gold-900: #412402;
+  --gold-800: #633806;
+  --gold-700: #854F0B;
+  --gold-600: #BA7517;
+  --gold-500: #D4871A;
+  --gold-400: #EF9F27;
+  --gold-300: #FAC775;
+  --gold-200: #FCD34D;
+  --gold-100: #FDE68A;
+  --gold-50:  #FFFBEB;
+
+  /* --- Color: Neutral --- */
+  --neutral-950: #0A0A0B;
+  --neutral-900: #111113;
+  --neutral-800: #1C1C1F;
+  --neutral-700: #28282D;
+  --neutral-600: #3D3D44;
+  --neutral-500: #5C5C66;
+  --neutral-400: #7E7E8A;
+  --neutral-300: #A3A3AD;
+  --neutral-200: #C8C8D0;
+  --neutral-150: #DDDDE4;
+  --neutral-100: #EBEBF0;
+  --neutral-50:  #F5F5F8;
+  --neutral-0:   #FFFFFF;
+
+  /* --- Color: Semantic --- */
+  --green-700: #27500A;
+  --green-600: #3B6D11;
+  --green-500: #4D8A15;
+  --green-400: #639922;
+  --green-200: #97C459;
+  --green-100: #C0DD97;
+  --green-50:  #EAF3DE;
+
+  --red-800:   #791F1F;
+  --red-700:   #A32D2D;
+  --red-600:   #C23535;
+  --red-400:   #E24B4A;
+  --red-200:   #F09595;
+  --red-100:   #F7C1C1;
+  --red-50:    #FCEBEB;
+
+  --amber-800: #633806;
+  --amber-700: #854F0B;
+  --amber-400: #BA7517;
+  --amber-200: #EF9F27;
+  --amber-100: #FAC775;
+  --amber-50:  #FAEEDA;
+
+  --purple-800: #3C3489;
+  --purple-600: #534AB7;
+  --purple-400: #7F77DD;
+  --purple-200: #AFA9EC;
+  --purple-50:  #EEEDFE;
+
+  /* --- Surfaces (Light Mode) --- */
+  --surface-page:   #F5F5F8;
+  --surface-0:      #F5F5F8;
+  --surface-1:      #EBEBF0;
+  --surface-2:      #FFFFFF;
+  --surface-overlay:#FFFFFF;
+
+  /* --- Text --- */
+  --text-primary:   #111113;
+  --text-secondary: #5C5C66;
+  --text-muted:     #A3A3AD;
+  --text-disabled:  #C8C8D0;
+  --text-inverse:   #FFFFFF;
+  --text-accent:    #185FA5;
+  --text-success:   #3B6D11;
+  --text-warning:   #854F0B;
+  --text-danger:    #A32D2D;
+
+  /* --- Borders --- */
+  --border:         rgba(0,0,0,0.08);
+  --border-strong:  rgba(0,0,0,0.14);
+  --border-stronger:rgba(0,0,0,0.22);
+  --border-accent:  #378ADD;
+  --border-success: #639922;
+  --border-warning: #EF9F27;
+  --border-danger:  #E24B4A;
+
+  /* --- Typography --- */
+  --font-ui:      'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Cascadia Code', monospace;
+
+  /* --- Type Scale --- */
+  --text-xs:    11px;
+  --text-sm:    12px;
+  --text-base:  14px;
+  --text-md:    15px;
+  --text-lg:    18px;
+  --text-xl:    22px;
+  --text-2xl:   28px;
+  --text-3xl:   36px;
+  --text-4xl:   48px;
+
+  /* --- Spacing --- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* --- Radius --- */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-full: 9999px;
+
+  /* --- Shadow --- */
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:  0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg:  0 4px 16px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
+
+  /* --- Motion --- */
+  --dur-fast:   100ms;
+  --dur-base:   150ms;
+  --dur-slow:   250ms;
+  --ease-out:   cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out:cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* --- Layout --- */
+  --sidebar-w:  240px;
+  --topbar-h:   56px;
+  --content-max:1200px;
+}
+
+/* ── Dark mode overrides ───────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-page:   #0D1117;
+    --surface-0:      #0D1117;
+    --surface-1:      #161B22;
+    --surface-2:      #1C2333;
+    --surface-overlay:#1C2333;
+    --text-primary:   #E6EDF3;
+    --text-secondary: #8B949E;
+    --text-muted:     #484F58;
+    --text-disabled:  #30363D;
+    --border:         rgba(255,255,255,0.08);
+    --border-strong:  rgba(255,255,255,0.14);
+    --border-stronger:rgba(255,255,255,0.22);
+  }
+}
+
+/* ── Base ──────────────────────────────────────────────── */
+body {
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Doc Layout ────────────────────────────────────────── */
+.doc-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar nav */
+.doc-nav {
+  width: var(--sidebar-w);
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  padding: var(--space-6) 0 var(--space-8);
+}
+.doc-nav-header {
+  padding: 0 var(--space-5) var(--space-5);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-4);
+}
+.doc-nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.doc-nav-logo-icon {
+  width: 34px; height: 34px;
+  background: var(--blue-700);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.doc-nav-logo-icon i { font-size: 18px; color: white; }
+.doc-nav-logo-text { line-height: 1.2; }
+.doc-nav-logo-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.doc-nav-logo-sub {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+.doc-nav-version {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.doc-nav-section {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--text-muted);
+  padding: var(--space-3) var(--space-5) var(--space-1);
+  text-transform: uppercase;
+}
+.doc-nav a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 7px var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all var(--dur-fast);
+}
+.doc-nav a:hover { color: var(--text-primary); background: var(--surface-1); }
+.doc-nav a.active {
+  color: var(--blue-700);
+  background: var(--blue-50);
+  border-left-color: var(--blue-500);
+  font-weight: 500;
+}
+.doc-nav a i { font-size: 15px; }
+
+/* Main content */
+.doc-main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: var(--space-10) var(--space-8) var(--space-16);
+  max-width: calc(var(--content-max) + var(--sidebar-w));
+}
+
+/* ── Section headings ──────────────────────────────────── */
+.ds-section {
+  margin-bottom: var(--space-16);
+  scroll-margin-top: var(--space-8);
+}
+.ds-section-eyebrow {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--blue-600);
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+.ds-section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  line-height: 1.2;
+}
+.ds-section-desc {
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+  max-width: 600px;
+  line-height: 1.7;
+}
+.ds-section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--space-10) 0;
+}
+
+/* ── Hero ──────────────────────────────────────────────── */
+.ds-hero {
+  background: var(--blue-900);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-10);
+  margin-bottom: var(--space-10);
+  position: relative;
+  overflow: hidden;
+}
+.ds-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: rgba(55,138,221,0.15);
+}
+.ds-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 40%;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(239,159,39,0.1);
+}
+.ds-hero-eyebrow {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--blue-300);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.ds-hero-title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: var(--space-3);
+}
+.ds-hero-title span { color: var(--gold-200); }
+.ds-hero-sub {
+  font-size: var(--text-md);
+  color: var(--blue-200);
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+.ds-hero-meta {
+  display: flex;
+  gap: var(--space-6);
+}
+.ds-hero-meta-item {
+  font-size: var(--text-sm);
+  color: var(--blue-300);
+}
+.ds-hero-meta-item strong { color: white; display: block; font-size: var(--text-md); }
+
+/* ── Demo card ─────────────────────────────────────────── */
+.ds-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+.ds-card-header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ds-card-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.ds-card-body { padding: var(--space-5); }
+.ds-card-footer {
+  padding: var(--space-3) var(--space-5);
+  background: var(--surface-1);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Code block ────────────────────────────────────────── */
+.ds-code {
+  background: var(--neutral-900);
+  color: var(--neutral-100);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+}
+.ds-code .c-comment { color: #6B7280; }
+.ds-code .c-key    { color: #93C5FD; }
+.ds-code .c-val    { color: #86EFAC; }
+.ds-code .c-str    { color: #FCA5A5; }
+.ds-code .c-num    { color: #FCD34D; }
+
+/* Token reference table */
+.ds-token-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.ds-token-table th {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-1);
+}
+.ds-token-table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.ds-token-table tr:last-child td { border-bottom: none; }
+.ds-token-table tr:hover td { background: var(--surface-1); }
+.ds-token-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--blue-700);
+  background: var(--blue-50);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+.ds-token-hex {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* ── Color swatches ────────────────────────────────────── */
+.color-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: var(--space-5);
+}
+.color-swatch {
+  flex: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.color-swatch-block {
+  height: 48px;
+}
+.color-swatch-info {
+  padding: 6px 8px;
+  background: var(--surface-2);
+}
+.color-swatch-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+}
+.color-swatch-hex {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.color-group {
+  margin-bottom: var(--space-6);
+}
+.color-group-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: var(--space-3);
+}
+
+/* ── Type scale ────────────────────────────────────────── */
+.type-specimen {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.type-row {
+  display: flex;
+  align-items: baseline;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border);
+  gap: var(--space-5);
+}
+.type-row:last-child { border-bottom: none; }
+.type-row:nth-child(even) { background: var(--surface-1); }
+.type-label {
+  width: 100px;
+  flex-shrink: 0;
+}
+.type-label-name {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+}
+.type-label-size {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.type-demo { flex: 1; }
+.type-meta {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  align-self: center;
+}
+
+/* ── Spacing scale ─────────────────────────────────────── */
+.space-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.space-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.space-bar {
+  background: var(--blue-200);
+  border-radius: var(--radius-sm);
+  height: 20px;
+  flex-shrink: 0;
+}
+.space-info {
+  font-size: var(--text-sm);
+}
+.space-token {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--blue-700);
+  background: var(--blue-50);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  margin-right: var(--space-2);
+}
+.space-px { color: var(--text-muted); font-size: var(--text-sm); }
+
+/* ── Grid ──────────────────────────────────────────────── */
+.ds-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+.ds-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); }
+.ds-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--space-3); }
+
+/* ============================================================
+   COMPONENT LIBRARY
+   ============================================================ */
+
+/* ── Buttons ───────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 9px var(--space-4);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--dur-fast) var(--ease-out);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+.btn:active { transform: scale(0.98); }
+.btn i { font-size: 15px; }
+
+.btn-primary {
+  background: var(--blue-700);
+  color: white;
+  border-color: var(--blue-700);
+}
+.btn-primary:hover { background: var(--blue-800); border-color: var(--blue-800); }
+
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+.btn-secondary:hover { background: var(--surface-1); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+.btn-ghost:hover { background: var(--surface-1); color: var(--text-primary); }
+
+.btn-danger {
+  background: var(--red-50);
+  color: var(--red-700);
+  border-color: var(--red-200);
+}
+.btn-danger:hover { background: var(--red-100); }
+
+.btn-outline-blue {
+  background: transparent;
+  color: var(--blue-700);
+  border-color: var(--blue-300);
+}
+.btn-outline-blue:hover { background: var(--blue-50); }
+
+.btn-gold {
+  background: var(--gold-600);
+  color: white;
+  border-color: var(--gold-600);
+}
+.btn-gold:hover { background: var(--gold-700); }
+
+.btn-sm { padding: 5px 10px; font-size: var(--text-xs); }
+.btn-sm i { font-size: 13px; }
+.btn-lg { padding: 11px var(--space-5); font-size: var(--text-md); }
+.btn-lg i { font-size: 17px; }
+.btn-icon-only { padding: 8px; }
+.btn-icon-only.btn-sm { padding: 5px; }
+
+/* ── Badges / Chips ────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+.badge i { font-size: 11px; }
+.badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.badge-blue   { background: var(--blue-50);   color: var(--blue-800);   border-color: var(--blue-200);   }
+.badge-green  { background: var(--green-50);  color: var(--green-700);  border-color: var(--green-200);  }
+.badge-amber  { background: var(--amber-50);  color: var(--amber-800);  border-color: var(--amber-100);  }
+.badge-red    { background: var(--red-50);    color: var(--red-800);    border-color: var(--red-200);    }
+.badge-purple { background: var(--purple-50); color: var(--purple-800); border-color: var(--purple-200); }
+.badge-gray   { background: var(--surface-1); color: var(--text-secondary); border-color: var(--border-strong); }
+.badge-gold   { background: var(--gold-50);   color: var(--gold-800);   border-color: var(--gold-100);   }
+
+/* ── Form controls ─────────────────────────────────────── */
+.form-group { margin-bottom: var(--space-4); }
+.form-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+.form-hint {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+.form-error {
+  font-size: var(--text-xs);
+  color: var(--red-700);
+  margin-top: var(--space-1);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 8px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  background: var(--surface-2);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  outline: none;
+  line-height: 1.5;
+}
+.input::placeholder { color: var(--text-muted); }
+.input:hover { border-color: var(--border-stronger); }
+.input:focus {
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(55,138,221,0.15);
+}
+.input.error {
+  border-color: var(--red-400);
+  box-shadow: 0 0 0 3px rgba(226,75,74,0.12);
+}
+.input:disabled {
+  background: var(--surface-1);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.input-with-icon { position: relative; }
+.input-with-icon .input { padding-left: 36px; }
+.input-with-icon .input-icon {
+  position: absolute;
+  left: 10px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A3A3AD' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+textarea.input { resize: vertical; min-height: 80px; }
+
+/* Toggle / Switch */
+.toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+.toggle {
+  position: relative;
+  width: 36px; height: 20px;
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+  transition: background var(--dur-base);
+  flex-shrink: 0;
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: white;
+  transition: transform var(--dur-base) var(--ease-out);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle.on { background: var(--blue-600); }
+.toggle.on::after { transform: translateX(16px); }
+.toggle-label { font-size: var(--text-sm); color: var(--text-primary); }
+
+/* Checkbox */
+.checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+.checkbox {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--dur-fast);
+}
+.checkbox.checked {
+  background: var(--blue-700);
+  border-color: var(--blue-700);
+}
+.checkbox.checked::after {
+  content: '';
+  width: 4px; height: 7px;
+  border: 1.5px solid white;
+  border-top: none; border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+.checkbox-label { font-size: var(--text-sm); }
+
+/* ── Cards ─────────────────────────────────────────────── */
+.card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.card-body { padding: var(--space-5); }
+.card-header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-header-title { font-size: var(--text-sm); font-weight: 600; }
+.card-footer {
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--border);
+  background: var(--surface-1);
+}
+
+/* Stat card */
+.stat-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+}
+.stat-card-label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.stat-card-value {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+.stat-card-delta {
+  font-size: var(--text-xs);
+  color: var(--green-600);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.stat-card-delta i { font-size: 12px; }
+
+/* ── Table ─────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-1);
+}
+.table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+.table tbody tr:last-child td { border-bottom: none; }
+.table tbody tr:hover td { background: var(--surface-1); }
+
+/* ── Toast / Alert ─────────────────────────────────────── */
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+.toast i { font-size: 18px; margin-top: 1px; flex-shrink: 0; }
+.toast-title { font-weight: 500; margin-bottom: 2px; }
+.toast-desc { font-size: var(--text-xs); }
+
+.toast-success { background: var(--green-50);  border-color: var(--green-200);  color: var(--green-700); }
+.toast-warning { background: var(--amber-50);  border-color: var(--amber-100);  color: var(--amber-700); }
+.toast-danger  { background: var(--red-50);    border-color: var(--red-200);    color: var(--red-700);   }
+.toast-info    { background: var(--blue-50);   border-color: var(--blue-200);   color: var(--blue-800);  }
+
+/* ── Navigation sidebar ────────────────────────────────── */
+.nav-demo {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  width: 200px;
+}
+.nav-logo-area {
+  padding: var(--space-4) var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-4) var(--space-1);
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all var(--dur-fast);
+}
+.nav-item:hover { background: var(--surface-1); color: var(--text-primary); }
+.nav-item.active {
+  background: var(--blue-50);
+  color: var(--blue-700);
+  border-left-color: var(--blue-500);
+  font-weight: 500;
+}
+.nav-item i { font-size: 15px; }
+.nav-badge {
+  margin-left: auto;
+  background: var(--red-50);
+  color: var(--red-700);
+  border: 1px solid var(--red-200);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  padding: 1px 6px;
+  font-weight: 600;
+}
+
+/* ── Screen card ───────────────────────────────────────── */
+.screen-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--dur-base);
+  cursor: pointer;
+}
+.screen-card:hover { border-color: var(--border-stronger); }
+.screen-card.selected { border-color: var(--blue-500); }
+.screen-thumb {
+  aspect-ratio: 16 / 9;
+  background: var(--neutral-900);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.screen-thumb-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  color: var(--neutral-600);
+  background: #0D1B2A;
+}
+.screen-thumb-ticker {
+  height: 18px;
+  background: #05111F;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-2);
+  font-size: 9px;
+  color: var(--neutral-500);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  gap: var(--space-2);
+}
+.screen-ticker-label {
+  background: var(--blue-700);
+  color: white;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: .06em;
+}
+.screen-info { padding: var(--space-3) var(--space-4); }
+.screen-name { font-size: var(--text-sm); font-weight: 600; margin-bottom: 3px; }
+.screen-meta { font-size: var(--text-xs); color: var(--text-muted); display: flex; align-items: center; gap: 3px; }
+
+/* ── Player preview ────────────────────────────────────── */
+.player-demo {
+  background: #000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.player-topbar {
+  background: rgba(0,10,24,.85);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  gap: var(--space-3);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  flex-shrink: 0;
+}
+.player-topbar-name { font-size: 11px; color: #64748B; }
+.player-topbar-time { font-size: 11px; color: #64748B; margin-left: auto; font-variant-numeric: tabular-nums; }
+.player-body { flex: 1; display: flex; }
+.player-main {
+  flex: 1;
+  background: #001428;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  gap: var(--space-3);
+  text-align: center;
+}
+.player-eyebrow {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--blue-400);
+  font-weight: 600;
+}
+.player-headline {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+.player-rate {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--gold-200);
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+.player-sub { font-size: 11px; color: #64748B; line-height: 1.6; }
+.player-cta {
+  background: var(--blue-700);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: var(--space-2);
+}
+.player-sidebar {
+  width: 220px;
+  background: #000D1A;
+  border-left: 1px solid #0D1B2A;
+  padding: var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+.player-clock { text-align: center; margin-bottom: var(--space-1); }
+.player-clock-time {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: #E2E8F0;
+  letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+}
+.player-clock-date { font-size: 9px; color: #475569; margin-top: 2px; }
+.player-info-box {
+  background: #0A1929;
+  border: 1px solid #1E2D45;
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+.player-info-title {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--blue-500);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+.player-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  color: #64748B;
+  margin-bottom: 4px;
+}
+.player-info-row:last-child { margin-bottom: 0; }
+.player-info-val { color: #E2E8F0; font-weight: 600; }
+.player-ticker {
+  height: 32px;
+  background: #050F1A;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #0D1B2A;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.player-ticker-label {
+  background: var(--blue-700);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  padding: 0 var(--space-3);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.player-ticker-text {
+  font-size: 10px;
+  color: #94A3B8;
+  white-space: nowrap;
+  padding: 0 var(--space-4);
+  animation: ticker-scroll 22s linear infinite;
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Radius demo ───────────────────────────────────────── */
+.radius-demo {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.radius-box {
+  background: var(--blue-100);
+  border: 2px solid var(--blue-300);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-3);
+  gap: var(--space-1);
+}
+.radius-label {
+  font-size: var(--text-xs);
+  color: var(--blue-700);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.radius-px {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--blue-600);
+}
+
+/* ── Motion demo ───────────────────────────────────────── */
+.motion-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.motion-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+.motion-label { font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-3); font-weight: 600; }
+.motion-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
+
+/* ── Flex demo row ─────────────────────────────────────── */
+.comp-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface-1);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+}
+
+/* ── Icon section ──────────────────────────────────────── */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--space-3);
+}
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  cursor: default;
+  transition: background var(--dur-fast);
+}
+.icon-item:hover { background: var(--blue-50); }
+.icon-item i { font-size: 22px; color: var(--text-secondary); }
+.icon-item:hover i { color: var(--blue-700); }
+.icon-name { font-size: 9px; color: var(--text-muted); text-align: center; }
+
+/* ── Elevation / Shadow demo ───────────────────────────── */
+.elevation-grid {
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  align-items: flex-end;
+  padding: var(--space-8) var(--space-6);
+  background: var(--surface-1);
+  border-radius: var(--radius-lg);
+}
+.elevation-card {
+  background: var(--surface-2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 110px;
+}
+.elevation-label { font-size: var(--text-xs); font-weight: 600; color: var(--text-muted); }
+.elevation-sub { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); text-align: center; }
+
+/* ── Scroll-to-top ─────────────────────────────────────── */
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 40px; height: 40px;
+  background: var(--blue-700);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  font-size: 18px;
+  transition: all var(--dur-base);
+  z-index: 200;
+}
+.back-to-top:hover { background: var(--blue-800); transform: translateY(-2px); }
+
+/* ── Utilities ─────────────────────────────────────────── */
+.flex-row { display: flex; align-items: center; }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mb-4 { margin-bottom: var(--space-4); }
+.text-muted { color: var(--text-muted); font-size: var(--text-sm); }
+.font-mono { font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────── -->
+<nav class="doc-nav" id="doc-nav">
+  <div class="doc-nav-header">
+    <div class="doc-nav-logo">
+      <div class="doc-nav-logo-icon"><i class="ti ti-device-tv"></i></div>
+      <div class="doc-nav-logo-text">
+        <div class="doc-nav-logo-name">Signage BG</div>
+        <div class="doc-nav-logo-sub">Design System</div>
+      </div>
+    </div>
+    <div class="doc-nav-version">v1.0 · Agustus 2026</div>
+  </div>
+
+  <div class="doc-nav-section">Fondasi</div>
+  <a href="#tokens" class="active"><i class="ti ti-variable"></i> Design tokens</a>
+  <a href="#colors"><i class="ti ti-palette"></i> Warna</a>
+  <a href="#typography"><i class="ti ti-typography"></i> Tipografi</a>
+  <a href="#spacing"><i class="ti ti-space"></i> Spacing & radius</a>
+  <a href="#shadows"><i class="ti ti-shadow"></i> Elevation</a>
+  <a href="#motion"><i class="ti ti-player-play"></i> Motion</a>
+  <a href="#icons"><i class="ti ti-icons"></i> Ikonografi</a>
+
+  <div class="doc-nav-section">Komponen</div>
+  <a href="#buttons"><i class="ti ti-pointer"></i> Tombol</a>
+  <a href="#badges"><i class="ti ti-tag"></i> Badge & status</a>
+  <a href="#forms"><i class="ti ti-forms"></i> Form control</a>
+  <a href="#cards"><i class="ti ti-layout-cards"></i> Card</a>
+  <a href="#tables"><i class="ti ti-table"></i> Tabel</a>
+  <a href="#alerts"><i class="ti ti-alert-circle"></i> Alert & toast</a>
+  <a href="#nav"><i class="ti ti-sidebar"></i> Navigasi</a>
+
+  <div class="doc-nav-section">Pola UI</div>
+  <a href="#screen-cards"><i class="ti ti-device-tv"></i> Screen card</a>
+  <a href="#player"><i class="ti ti-player-play"></i> Player display</a>
+</nav>
+
+<!-- ── Main Content ────────────────────────────────────── -->
+<main class="doc-main">
+
+  <!-- Hero -->
+  <div class="ds-hero" id="tokens">
+    <div class="ds-hero-eyebrow">Design System · BPR Bank Gresik</div>
+    <div class="ds-hero-title">Signage <span>BG</span></div>
+    <div class="ds-hero-sub">Panduan visual dan komponen untuk aplikasi digital signage internal BPR Bank Gresik. Digunakan oleh developer dan desainer untuk menjaga konsistensi UI di seluruh halaman.</div>
+    <div class="ds-hero-meta">
+      <div class="ds-hero-meta-item"><strong>Plus Jakarta Sans</strong>UI & admin</div>
+      <div class="ds-hero-meta-item"><strong>Bricolage Grotesque</strong>Player display</div>
+      <div class="ds-hero-meta-item"><strong>Navy + Gold</strong>Brand palette</div>
+    </div>
+  </div>
+
+  <!-- ── DESIGN TOKENS ──────────────────────────────────── -->
+  <div class="ds-section">
+    <div class="ds-section-eyebrow">Fondasi</div>
+    <div class="ds-section-title">Design Tokens</div>
+    <div class="ds-section-desc">Semua nilai visual — warna, spasi, radius, shadow, durasi — didefinisikan sebagai CSS custom properties. Gunakan token ini secara langsung; jangan hardcode nilai mentah.</div>
+
+    <div class="ds-card">
+      <div class="ds-card-header"><span class="ds-card-title">Cara penggunaan token</span><span class="badge badge-blue">CSS Variables</span></div>
+      <div class="ds-card-body">
+        <div class="ds-code"><span class="c-comment">/* ✅ Benar — gunakan token */</span>
+<span class="c-key">.tombol</span> {
+  <span class="c-key">background</span>: <span class="c-val">var(--blue-700)</span>;
+  <span class="c-key">color</span>:      <span class="c-val">var(--text-inverse)</span>;
+  <span class="c-key">padding</span>:   <span class="c-val">var(--space-2) var(--space-4)</span>;
+  <span class="c-key">border-radius</span>: <span class="c-val">var(--radius-md)</span>;
+  <span class="c-key">transition</span>:    <span class="c-val">all var(--dur-fast) var(--ease-out)</span>;
+}
+
+<span class="c-comment">/* ❌ Hindari — hardcode langsung */</span>
+<span class="c-key">.tombol</span> {
+  <span class="c-key">background</span>: <span class="c-str">#185FA5</span>;     <span class="c-comment">/* tidak adaptive dark mode */</span>
+  <span class="c-key">padding</span>:    <span class="c-str">8px 16px</span>;     <span class="c-comment">/* tidak konsisten dengan skala */</span>
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── COLORS ─────────────────────────────────────────── -->
+  <div class="ds-section" id="colors">
+    <div class="ds-section-eyebrow">Fondasi</div>
+    <div class="ds-section-title">Warna</div>
+    <div class="ds-section-desc">Dua ramp utama: Blue sebagai identitas brand, Gold sebagai accent untuk angka rate dan highlight konten promosi di player display. Neutral untuk semua surface dan teks.</div>
+
+    <!-- Blue ramp -->
+    <div class="color-group">
+      <div class="color-group-label">Brand blue — ramp utama</div>
+      <div class="color-row">
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#020E1F"></div><div class="color-swatch-info"><span class="color-swatch-name">950</span><span class="color-swatch-hex">#020E1F</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#042C53"></div><div class="color-swatch-info"><span class="color-swatch-name">900</span><span class="color-swatch-hex">#042C53</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#0C447C"></div><div class="color-swatch-info"><span class="color-swatch-name">800</span><span class="color-swatch-hex">#0C447C</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#185FA5"></div><div class="color-swatch-info"><span class="color-swatch-name">700 ★</span><span class="color-swatch-hex">#185FA5</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#378ADD"></div><div class="color-swatch-info"><span class="color-swatch-name">500</span><span class="color-swatch-hex">#378ADD</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#85B7EB"></div><div class="color-swatch-info"><span class="color-swatch-name">300</span><span class="color-swatch-hex">#85B7EB</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#B5D4F4"></div><div class="color-swatch-info"><span class="color-swatch-name">200</span><span class="color-swatch-hex">#B5D4F4</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#D6E9FA"></div><div class="color-swatch-info"><span class="color-swatch-name">100</span><span class="color-swatch-hex">#D6E9FA</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#EEF6FD"></div><div class="color-swatch-info"><span class="color-swatch-name">50</span><span class="color-swatch-hex">#EEF6FD</span></div></div>
+      </div>
+    </div>
+
+    <!-- Gold ramp -->
+    <div class="color-group">
+      <div class="color-group-label">Gold — accent player & highlight</div>
+      <div class="color-row">
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#412402"></div><div class="color-swatch-info"><span class="color-swatch-name">900</span><span class="color-swatch-hex">#412402</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#633806"></div><div class="color-swatch-info"><span class="color-swatch-name">800</span><span class="color-swatch-hex">#633806</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#854F0B"></div><div class="color-swatch-info"><span class="color-swatch-name">700</span><span class="color-swatch-hex">#854F0B</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#BA7517"></div><div class="color-swatch-info"><span class="color-swatch-name">600 ★</span><span class="color-swatch-hex">#BA7517</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#EF9F27"></div><div class="color-swatch-info"><span class="color-swatch-name">400</span><span class="color-swatch-hex">#EF9F27</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#FAC775"></div><div class="color-swatch-info"><span class="color-swatch-name">300</span><span class="color-swatch-hex">#FAC775</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#FCD34D"></div><div class="color-swatch-info"><span class="color-swatch-name">200 ★</span><span class="color-swatch-hex">#FCD34D</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#FDE68A"></div><div class="color-swatch-info"><span class="color-swatch-name">100</span><span class="color-swatch-hex">#FDE68A</span></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#FFFBEB"></div><div class="color-swatch-info"><span class="color-swatch-name">50</span><span class="color-swatch-hex">#FFFBEB</span></div></div>
+      </div>
+    </div>
+
+    <!-- Semantic -->
+    <div class="color-group">
+      <div class="color-group-label">Semantic — status & feedback</div>
+      <div class="ds-grid-4">
+        <div><div style="height:48px;background:#EAF3DE;border-radius:var(--radius-md) var(--radius-md) 0 0;border:1px solid #C0DD97"></div><div style="padding:8px;background:var(--surface-2);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md)"><span class="color-swatch-name">Success / Online</span><div class="color-swatch-hex">#EAF3DE · #3B6D11</div></div></div>
+        <div><div style="height:48px;background:#FAEEDA;border-radius:var(--radius-md) var(--radius-md) 0 0;border:1px solid #FAC775"></div><div style="padding:8px;background:var(--surface-2);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md)"><span class="color-swatch-name">Warning / Idle</span><div class="color-swatch-hex">#FAEEDA · #854F0B</div></div></div>
+        <div><div style="height:48px;background:#FCEBEB;border-radius:var(--radius-md) var(--radius-md) 0 0;border:1px solid #F09595"></div><div style="padding:8px;background:var(--surface-2);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md)"><span class="color-swatch-name">Danger / Offline</span><div class="color-swatch-hex">#FCEBEB · #A32D2D</div></div></div>
+        <div><div style="height:48px;background:#EEEDFE;border-radius:var(--radius-md) var(--radius-md) 0 0;border:1px solid #AFA9EC"></div><div style="padding:8px;background:var(--surface-2);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md)"><span class="color-swatch-name">Pro / Jadwal aktif</span><div class="color-swatch-hex">#EEEDFE · #3C3489</div></div></div>
+      </div>
+    </div>
+
+    <!-- Token reference -->
+    <div class="ds-card mt-4">
+      <div class="ds-card-header"><span class="ds-card-title">Token warna — referensi cepat</span></div>
+      <div style="overflow-x:auto">
+        <table class="ds-token-table">
+          <thead><tr><th>Token</th><th>Nilai</th><th>Kegunaan</th></tr></thead>
+          <tbody>
+            <tr><td><code class="ds-token-name">--blue-700</code></td><td><code class="ds-token-hex">#185FA5</code></td><td>Tombol primary, link, border aksen</td></tr>
+            <tr><td><code class="ds-token-name">--blue-500</code></td><td><code class="ds-token-hex">#378ADD</code></td><td>Focus ring, icon aksen, border aksen ringan</td></tr>
+            <tr><td><code class="ds-token-name">--blue-50</code></td><td><code class="ds-token-hex">#EEF6FD</code></td><td>Badge blue background, nav item aktif</td></tr>
+            <tr><td><code class="ds-token-name">--gold-600</code></td><td><code class="ds-token-hex">#BA7517</code></td><td>Tombol gold, teks rate di admin</td></tr>
+            <tr><td><code class="ds-token-name">--gold-200</code></td><td><code class="ds-token-hex">#FCD34D</code></td><td">Angka rate besar di player display</td></tr>
+            <tr><td><code class="ds-token-name">--text-primary</code></td><td><code class="ds-token-hex">#111113</code></td><td>Teks utama di semua permukaan</td></tr>
+            <tr><td><code class="ds-token-name">--text-secondary</code></td><td><code class="ds-token-hex">#5C5C66</code></td><td>Teks pendukung, label, metadata</td></tr>
+            <tr><td><code class="ds-token-name">--surface-2</code></td><td><code class="ds-token-hex">#FFFFFF</code></td><td>Background card, modal, input</td></tr>
+            <tr><td><code class="ds-token-name">--surface-1</code></td><td><code class="ds-token-hex">#EBEBF0</code></td><td>Background baris hover, sidebar nav aktif</td></tr>
+            <tr><td><code class="ds-token-name">--surface-0</code></td><td><code class="ds-token-hex">#F5F5F8</code></td><td">Background halaman utama</td></tr>
+            <tr><td><code class="ds-token-name">--border</code></td><td><code class="ds-token-hex">rgba(0,0,0,.08)</code></td><td>Border default semua elemen</td></tr>
+            <tr><td><code class="ds-token-name">--border-strong</code></td><td><code class="ds-token-hex">rgba(0,0,0,.14)</code></td><td>Border input, card yang lebih tegas</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── TYPOGRAPHY ─────────────────────────────────────── -->
+  <div class="ds-section" id="typography">
+    <div class="ds-section-eyebrow">Fondasi</div>
+    <div class="ds-section-title">Tipografi</div>
+    <div class="ds-section-desc">Dua font untuk dua konteks berbeda. Plus Jakarta Sans untuk semua UI admin — bersih dan mudah dibaca di layar kecil. Bricolage Grotesque untuk player display — karakter kuat, terlihat dari jarak jauh di TV.</div>
+
+    <div class="ds-grid-2 mb-4">
+      <div class="ds-card">
+        <div class="ds-card-header"><span class="ds-card-title">Plus Jakarta Sans — UI & admin</span><span class="badge badge-blue">--font-ui</span></div>
+        <div class="ds-card-body">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:600;margin-bottom:8px;line-height:1.1">Aa Bb Cc</div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text-secondary);line-height:1.7">Digunakan untuk semua teks di halaman admin dashboard, form, tabel, label, tombol, dan navigasi. Bersih dan mudah dibaca di ukuran kecil.</div>
+          <div class="mt-4" style="font-family:'Plus Jakarta Sans',sans-serif">
+            <div style="font-weight:400;font-size:13px;color:var(--text-secondary);margin-bottom:4px">Regular 400 — teks body dan konten</div>
+            <div style="font-weight:500;font-size:13px;color:var(--text-primary);margin-bottom:4px">Medium 500 — label, heading sekunder</div>
+            <div style="font-weight:600;font-size:13px;color:var(--text-primary)">SemiBold 600 — heading, tombol, judul section</div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-card-header"><span class="ds-card-title">Bricolage Grotesque — player display</span><span class="badge badge-gold">--font-display</span></div>
+        <div class="ds-card-body">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:32px;font-weight:700;margin-bottom:8px;line-height:1.1;color:var(--blue-900)">4,25% p.a.</div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text-secondary);line-height:1.7">Khusus untuk konten player yang ditampilkan di TV/monitor. Karakter variable-width yang kuat, headline promo, angka rate, dan jam digital.</div>
+          <div class="mt-4" style="font-family:'Bricolage Grotesque',sans-serif">
+            <div style="font-weight:400;font-size:14px;color:var(--text-secondary);margin-bottom:4px">Regular 400 — sub-headline player</div>
+            <div style="font-weight:500;font-size:14px;color:var(--text-primary);margin-bottom:4px">Medium 500 — nama produk, label zone</div>
+            <div style="font-weight:700;font-size:14px;color:var(--text-primary)">Bold 700 — angka rate, headline utama, jam</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">4xl</span><span class="type-label-size">--text-4xl · 48px</span></div>
+        <div class="type-demo" style="font-family:'Bricolage Grotesque',sans-serif;font-size:48px;font-weight:700;line-height:1.1">Tabungan Gresik</div>
+        <div class="type-meta">display · player headline</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">3xl</span><span class="type-label-size">--text-3xl · 36px</span></div>
+        <div class="type-demo" style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:700;line-height:1.1">7,25% p.a.</div>
+        <div class="type-meta">display · angka rate</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">2xl</span><span class="type-label-size">--text-2xl · 28px</span></div>
+        <div class="type-demo" style="font-size:28px;font-weight:700;line-height:1.2">Selamat datang</div>
+        <div class="type-meta">page title</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">xl</span><span class="type-label-size">--text-xl · 22px</span></div>
+        <div class="type-demo" style="font-size:22px;font-weight:600;line-height:1.3">Dashboard admin</div>
+        <div class="type-meta">section heading</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">lg</span><span class="type-label-size">--text-lg · 18px</span></div>
+        <div class="type-demo" style="font-size:18px;font-weight:600">Manajemen layar</div>
+        <div class="type-meta">card heading</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">md</span><span class="type-label-size">--text-md · 15px</span></div>
+        <div class="type-demo" style="font-size:15px;font-weight:500">Jadwal tayang aktif</div>
+        <div class="type-meta">UI label utama</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">base</span><span class="type-label-size">--text-base · 14px</span></div>
+        <div class="type-demo" style="font-size:14px">Konten library, tabel data, form input</div>
+        <div class="type-meta">body default</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">sm</span><span class="type-label-size">--text-sm · 12px</span></div>
+        <div class="type-demo" style="font-size:12px;color:var(--text-secondary)">Metadata, waktu tayang, lokasi layar, keterangan</div>
+        <div class="type-meta">secondary text</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label"><span class="type-label-name">xs</span><span class="type-label-size">--text-xs · 11px</span></div>
+        <div class="type-demo" style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600">LABEL SECTION · STATUS · BADGE</div>
+        <div class="type-meta">eyebrow · label</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── SPACING ────────────────────────────────────────── -->
+  <div class="ds-section" id="spacing">
+    <div class="ds-section-eyebrow">Fondasi</div>
+    <div class="ds-section-title">Spacing & Radius</div>
+    <div class="ds-section-desc">Skala spacing berbasis 4px untuk konsistensi vertical rhythm. Gunakan token, bukan angka magic.</div>
+
+    <div class="ds-grid-2">
+      <div class="ds-card">
+        <div class="ds-card-header"><span class="ds-card-title">Spacing scale</span></div>
+        <div class="ds-card-body">
+          <div class="space-grid">
+            <div class="space-row"><div class="space-bar" style="width:4px"></div><div class="space-info"><span class="space-token">--space-1</span><span class="space-px">4px</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:8px"></div><div class="space-info"><span class="space-token">--space-2</span><span class="space-px">8px</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:12px"></div><div class="space-info"><span class="space-token">--space-3</span><span class="space-px">12px</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:16px"></div><div class="space-info"><span class="space-token">--space-4</span><span class="space-px">16px — padding card</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:20px"></div><div class="space-info"><span class="space-token">--space-5</span><span class="space-px">20px</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:24px"></div><div class="space-info"><span class="space-token">--space-6</span><span class="space-px">24px</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:32px"></div><div class="space-info"><span class="space-token">--space-8</span><span class="space-px">32px</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:40px"></div><div class="space-info"><span class="space-token">--space-10</span><span class="space-px">40px</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:48px"></div><div class="space-info"><span class="space-token">--space-12</span><span class="space-px">48px</span></div></div>
+            <div class="space-row"><div class="space-bar" style="width:64px"></div><div class="space-info"><span class="space-token">--space-16</span><span class="space-px">64px</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-card-header"><span class="ds-card-title">Border radius</span></div>
+        <div class="ds-card-body">
+          <div class="radius-demo">
+            <div><div class="radius-box" style="border-radius:4px;width:60px;height:60px"></div><div class="radius-label" style="font-size:10px;color:var(--text-muted);margin-top:6px">--radius-sm</div><div class="radius-px" style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">4px</div></div>
+            <div><div class="radius-box" style="border-radius:8px;width:70px;height:70px"></div><div class="radius-label" style="font-size:10px;color:var(--text-muted);margin-top:6px">--radius-md</div><div class="radius-px" style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">8px · tombol, input</div></div>
+            <div><div class="radius-box" style="border-radius:12px;width:80px;height:80px"></div><div class="radius-label" style="font-size:10px;color:var(--text-muted);margin-top:6px">--radius-lg</div><div class="radius-px" style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">12px · card</div></div>
+            <div><div class="radius-box" style="border-radius:16px;width:90px;height:90px"></div><div class="radius-label" style="font-size:10px;color:var(--text-muted);margin-top:6px">--radius-xl</div><div class="radius-px" style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">16px · modal</div></div>
+            <div><div class="radius-box" style="border-radius:9999px;width:60px;height:36px"></div><div class="radius-label" style="font-size:10px;color:var(--text-muted);margin-top:6px">--radius-full</div><div class="radius-px" style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">9999px · badge, pill</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── SHADOWS ────────────────────────────────────────── -->
+  <div class="ds-section" id="shadows">
+    <div class="ds-section-eyebrow">Fondasi</div>
+    <div class="ds-section-title">Elevation & Shadow</div>
+    <div class="ds-section-desc">Shadow digunakan secara hemat — hanya untuk elemen yang perlu "mengapung" di atas konten lain (modal, popover, card interaktif).</div>
+
+    <div class="elevation-grid">
+      <div class="elevation-card" style="box-shadow:none;border:1px solid var(--border)">
+        <div class="elevation-label">Flat</div>
+        <div class="elevation-sub">Tidak ada shadow<br>Untuk card statis, tabel</div>
+      </div>
+      <div class="elevation-card" style="box-shadow:var(--shadow-sm)">
+        <div class="elevation-label">sm</div>
+        <div class="elevation-sub">--shadow-sm<br>Input focus, chip</div>
+      </div>
+      <div class="elevation-card" style="box-shadow:var(--shadow-md)">
+        <div class="elevation-label">md</div>
+        <div class="elevation-sub">--shadow-md<br>Card interaktif, dropdown</div>
+      </div>
+      <div class="elevation-card" style="box-shadow:var(--shadow-lg)">
+        <div class="elevation-label">lg</div>
+        <div class="elevation-sub">--shadow-lg<br>Modal, panel, dialog</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── MOTION ─────────────────────────────────────────── -->
+  <div class="ds-section" id="motion">
+    <div class="ds-section-eyebrow">Fondasi</div>
+    <div class="ds-section-title">Motion & Transisi</div>
+    <div class="ds-section-desc">Tiga token durasi dan dua easing yang mencakup semua kasus UI. Jangan animasi lebih dari <code style="font-family:var(--font-mono);font-size:13px;background:var(--surface-1);padding:1px 5px;border-radius:4px">opacity</code> dan <code style="font-family:var(--font-mono);font-size:13px;background:var(--surface-1);padding:1px 5px;border-radius:4px">transform</code> untuk performa terbaik.</div>
+
+    <div class="ds-card">
+      <div class="ds-card-body">
+        <table class="ds-token-table">
+          <thead><tr><th>Token</th><th>Nilai</th><th>Kegunaan</th></tr></thead>
+          <tbody>
+            <tr><td><code class="ds-token-name">--dur-fast</code></td><td><code class="ds-token-hex">100ms</code></td><td>Hover state, aktif tombol, badge muncul</td></tr>
+            <tr><td><code class="ds-token-name">--dur-base</code></td><td><code class="ds-token-hex">150ms</code></td><td>Toggle, dropdown buka, tab switch</td></tr>
+            <tr><td><code class="ds-token-name">--dur-slow</code></td><td><code class="ds-token-hex">250ms</code></td><td>Modal masuk, panel geser, transisi halaman</td></tr>
+            <tr><td><code class="ds-token-name">--ease-out</code></td><td><code class="ds-token-hex">cubic-bezier(0,0,.2,1)</code></td><td>Elemen masuk layar (decelerate)</td></tr>
+            <tr><td><code class="ds-token-name">--ease-in-out</code></td><td><code class="ds-token-hex">cubic-bezier(.4,0,.2,1)</code></td><td>Elemen bergerak antar posisi</td></tr>
+          </tbody>
+        </table>
+        <div class="ds-code mt-4"><span class="c-comment">/* Pola standar transisi UI */</span>
+<span class="c-key">.tombol</span> {
+  <span class="c-key">transition</span>: <span class="c-val">background var(--dur-fast) var(--ease-out),
+              transform  var(--dur-fast) var(--ease-out)</span>;
+}
+<span class="c-key">.tombol:active</span> { <span class="c-key">transform</span>: <span class="c-val">scale(0.98)</span>; }
+
+<span class="c-comment">/* Ticker player — animasi scroll tak terbatas */</span>
+<span class="c-key">@keyframes</span> ticker-scroll {
+  <span class="c-key">from</span> { <span class="c-key">transform</span>: <span class="c-val">translateX(0)</span>; }
+  <span class="c-key">to</span>   { <span class="c-key">transform</span>: <span class="c-val">translateX(-50%)</span>; }
+}
+<span class="c-key">.ticker-text</span> { <span class="c-key">animation</span>: <span class="c-val">ticker-scroll 22s linear infinite</span>; }</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── ICONS ──────────────────────────────────────────── -->
+  <div class="ds-section" id="icons">
+    <div class="ds-section-eyebrow">Fondasi</div>
+    <div class="ds-section-title">Ikonografi</div>
+    <div class="ds-section-desc">Menggunakan Tabler Icons (outline) via webfont. Ukuran standar: 15px untuk inline UI, 18px untuk aksi navigasi, 22px untuk ilustrasi di card kosong.</div>
+
+    <div class="ds-card mb-4">
+      <div class="ds-card-header"><span class="ds-card-title">Ikon yang digunakan dalam aplikasi</span></div>
+      <div class="ds-card-body">
+        <div class="icon-grid">
+          <div class="icon-item"><i class="ti ti-layout-dashboard"></i><span class="icon-name">ti-layout-dashboard</span></div>
+          <div class="icon-item"><i class="ti ti-device-tv"></i><span class="icon-name">ti-device-tv</span></div>
+          <div class="icon-item"><i class="ti ti-photo"></i><span class="icon-name">ti-photo</span></div>
+          <div class="icon-item"><i class="ti ti-video"></i><span class="icon-name">ti-video</span></div>
+          <div class="icon-item"><i class="ti ti-playlist"></i><span class="icon-name">ti-playlist</span></div>
+          <div class="icon-item"><i class="ti ti-calendar"></i><span class="icon-name">ti-calendar</span></div>
+          <div class="icon-item"><i class="ti ti-clock"></i><span class="icon-name">ti-clock</span></div>
+          <div class="icon-item"><i class="ti ti-marquee"></i><span class="icon-name">ti-marquee</span></div>
+          <div class="icon-item"><i class="ti ti-layout"></i><span class="icon-name">ti-layout</span></div>
+          <div class="icon-item"><i class="ti ti-users"></i><span class="icon-name">ti-users</span></div>
+          <div class="icon-item"><i class="ti ti-settings"></i><span class="icon-name">ti-settings</span></div>
+          <div class="icon-item"><i class="ti ti-plus"></i><span class="icon-name">ti-plus</span></div>
+          <div class="icon-item"><i class="ti ti-edit"></i><span class="icon-name">ti-edit</span></div>
+          <div class="icon-item"><i class="ti ti-trash"></i><span class="icon-name">ti-trash</span></div>
+          <div class="icon-item"><i class="ti ti-eye"></i><span class="icon-name">ti-eye</span></div>
+          <div class="icon-item"><i class="ti ti-upload"></i><span class="icon-name">ti-upload</span></div>
+          <div class="icon-item"><i class="ti ti-download"></i><span class="icon-name">ti-download</span></div>
+          <div class="icon-item"><i class="ti ti-search"></i><span class="icon-name">ti-search</span></div>
+          <div class="icon-item"><i class="ti ti-filter"></i><span class="icon-name">ti-filter</span></div>
+          <div class="icon-item"><i class="ti ti-bell"></i><span class="icon-name">ti-bell</span></div>
+          <div class="icon-item"><i class="ti ti-player-play"></i><span class="icon-name">ti-player-play</span></div>
+          <div class="icon-item"><i class="ti ti-player-pause"></i><span class="icon-name">ti-player-pause</span></div>
+          <div class="icon-item"><i class="ti ti-refresh"></i><span class="icon-name">ti-refresh</span></div>
+          <div class="icon-item"><i class="ti ti-map-pin"></i><span class="icon-name">ti-map-pin</span></div>
+          <div class="icon-item"><i class="ti ti-wifi"></i><span class="icon-name">ti-wifi</span></div>
+          <div class="icon-item"><i class="ti ti-wifi-off"></i><span class="icon-name">ti-wifi-off</span></div>
+          <div class="icon-item"><i class="ti ti-check"></i><span class="icon-name">ti-check</span></div>
+          <div class="icon-item"><i class="ti ti-x"></i><span class="icon-name">ti-x</span></div>
+          <div class="icon-item"><i class="ti ti-alert-triangle"></i><span class="icon-name">ti-alert-triangle</span></div>
+          <div class="icon-item"><i class="ti ti-info-circle"></i><span class="icon-name">ti-info-circle</span></div>
+          <div class="icon-item"><i class="ti ti-drag-drop"></i><span class="icon-name">ti-drag-drop</span></div>
+          <div class="icon-item"><i class="ti ti-copy"></i><span class="icon-name">ti-copy</span></div>
+          <div class="icon-item"><i class="ti ti-external-link"></i><span class="icon-name">ti-external-link</span></div>
+          <div class="icon-item"><i class="ti ti-chevron-down"></i><span class="icon-name">ti-chevron-down</span></div>
+          <div class="icon-item"><i class="ti ti-dots-vertical"></i><span class="icon-name">ti-dots-vertical</span></div>
+          <div class="icon-item"><i class="ti ti-lock"></i><span class="icon-name">ti-lock</span></div>
+        </div>
+      </div>
+      <div class="ds-card-footer">
+        <div class="ds-code" style="background:transparent;color:var(--text-secondary);padding:0;font-size:12px">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"&gt;
+&lt;i class="ti ti-device-tv" aria-hidden="true"&gt;&lt;/i&gt;</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── BUTTONS ────────────────────────────────────────── -->
+  <div class="ds-section" id="buttons">
+    <div class="ds-section-eyebrow">Komponen</div>
+    <div class="ds-section-title">Tombol</div>
+    <div class="ds-section-desc">Enam varian tombol untuk berbagai konteks. Gunakan <code style="font-family:var(--font-mono);font-size:13px;background:var(--surface-1);padding:1px 5px;border-radius:4px">btn-primary</code> hanya sekali per view. Gunakan <code style="font-family:var(--font-mono);font-size:13px;background:var(--surface-1);padding:1px 5px;border-radius:4px">btn-ghost</code> untuk aksi sekunder yang tidak butuh penekanan visual.</div>
+
+    <div class="ds-card mb-4">
+      <div class="ds-card-header"><span class="ds-card-title">Varian</span></div>
+      <div class="ds-card-body">
+        <div class="comp-demo">
+          <button class="btn btn-primary"><i class="ti ti-plus"></i> Tambah jadwal</button>
+          <button class="btn btn-secondary"><i class="ti ti-edit"></i> Edit layar</button>
+          <button class="btn btn-ghost"><i class="ti ti-eye"></i> Preview</button>
+          <button class="btn btn-danger"><i class="ti ti-trash"></i> Hapus</button>
+          <button class="btn btn-outline-blue"><i class="ti ti-external-link"></i> Buka player</button>
+          <button class="btn btn-gold"><i class="ti ti-star"></i> Prioritas tinggi</button>
+        </div>
+        <div class="comp-demo">
+          <button class="btn btn-primary btn-sm"><i class="ti ti-plus"></i> Tambah</button>
+          <button class="btn btn-secondary btn-sm">Filter</button>
+          <button class="btn btn-ghost btn-sm"><i class="ti ti-refresh"></i></button>
+          <button class="btn btn-primary btn-lg"><i class="ti ti-player-play"></i> Putar sekarang</button>
+        </div>
+      </div>
+      <div class="ds-card-footer">
+        <div class="ds-code" style="background:transparent;color:var(--text-secondary);padding:0;font-size:12px">&lt;button class="btn btn-primary"&gt;&lt;i class="ti ti-plus"&gt;&lt;/i&gt; Tambah jadwal&lt;/button&gt;
+&lt;button class="btn btn-secondary btn-sm"&gt;Filter&lt;/button&gt;
+&lt;button class="btn btn-danger"&gt;&lt;i class="ti ti-trash"&gt;&lt;/i&gt; Hapus&lt;/button&gt;</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── BADGES ─────────────────────────────────────────── -->
+  <div class="ds-section" id="badges">
+    <div class="ds-section-eyebrow">Komponen</div>
+    <div class="ds-section-title">Badge & Status</div>
+    <div class="ds-section-desc">Badge digunakan untuk status layar, status jadwal, dan label kategori. Selalu pakai dot untuk status real-time; pakai ikon untuk kategori yang lebih deskriptif.</div>
+
+    <div class="ds-card">
+      <div class="ds-card-header"><span class="ds-card-title">Status layar</span></div>
+      <div class="ds-card-body">
+        <div class="comp-demo">
+          <span class="badge badge-green"><span class="badge-dot"></span>Online</span>
+          <span class="badge badge-amber"><span class="badge-dot"></span>Idle</span>
+          <span class="badge badge-red"><span class="badge-dot"></span>Offline</span>
+          <span class="badge badge-blue"><span class="badge-dot"></span>Aktif</span>
+          <span class="badge badge-gray"><span class="badge-dot"></span>Menunggu</span>
+          <span class="badge badge-purple"><span class="badge-dot"></span>Priority</span>
+          <span class="badge badge-gold">Fallback</span>
+        </div>
+        <div class="comp-demo" style="margin-top:0">
+          <span class="badge badge-blue"><i class="ti ti-calendar"></i> Terjadwal</span>
+          <span class="badge badge-gray"><i class="ti ti-file"></i> Draft</span>
+          <span class="badge badge-green"><i class="ti ti-check"></i> Aktif</span>
+          <span class="badge badge-red"><i class="ti ti-x"></i> Expired</span>
+          <span class="badge badge-amber"><i class="ti ti-alert-triangle"></i> Peringatan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── FORMS ──────────────────────────────────────────── -->
+  <div class="ds-section" id="forms">
+    <div class="ds-section-eyebrow">Komponen</div>
+    <div class="ds-section-title">Form Control</div>
+    <div class="ds-section-desc">Semua form menggunakan komponen standar ini. Input menggunakan height 36px, dengan focus ring blue dan error state merah.</div>
+
+    <div class="ds-grid-2">
+      <div class="ds-card">
+        <div class="ds-card-header"><span class="ds-card-title">Input & Select</span></div>
+        <div class="ds-card-body">
+          <div class="form-group">
+            <label class="form-label">Nama layar</label>
+            <input type="text" class="input" placeholder="cth. Banking Hall 1" value="Banking Hall 1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Dengan ikon</label>
+            <div class="input-with-icon">
+              <i class="ti ti-search input-icon"></i>
+              <input type="text" class="input" placeholder="Cari konten...">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Pilih layout</label>
+            <select class="input">
+              <option>L-Shape (main + sidebar)</option>
+              <option>Fullscreen</option>
+              <option>Split Horizontal</option>
+              <option>Split Vertical</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Error state</label>
+            <input type="text" class="input error" placeholder="Nama tidak boleh kosong" value="">
+            <div class="form-error"><i class="ti ti-alert-circle" style="font-size:12px;vertical-align:-1px"></i> Nama layar wajib diisi</div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Disabled</label>
+            <input type="text" class="input" disabled value="Tidak bisa diedit">
+          </div>
+        </div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-card-header"><span class="ds-card-title">Toggle, Checkbox & Textarea</span></div>
+        <div class="ds-card-body">
+          <div class="form-group">
+            <label class="form-label">Status layar</label>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+                <div class="toggle on"></div>
+                <span class="toggle-label">Layar aktif</span>
+              </div>
+              <div class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+                <div class="toggle"></div>
+                <span class="toggle-label">Tampilkan ticker</span>
+              </div>
+              <div class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+                <div class="toggle on"></div>
+                <span class="toggle-label">Auto-refresh konten</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Layar yang diterapkan</label>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div class="checkbox-wrap" onclick="this.querySelector('.checkbox').classList.toggle('checked')">
+                <div class="checkbox checked"></div>
+                <span class="checkbox-label">Banking Hall 1</span>
+              </div>
+              <div class="checkbox-wrap" onclick="this.querySelector('.checkbox').classList.toggle('checked')">
+                <div class="checkbox checked"></div>
+                <span class="checkbox-label">Ruang Tunggu</span>
+              </div>
+              <div class="checkbox-wrap" onclick="this.querySelector('.checkbox').classList.toggle('checked')">
+                <div class="checkbox"></div>
+                <span class="checkbox-label">Teller Area</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Teks ticker</label>
+            <textarea class="input" rows="3" placeholder="Masukkan teks yang akan berjalan di bagian bawah layar...">Deposito dijamin LPS hingga Rp 2 miliar · BPR Bank Gresik terdaftar dan diawasi OJK</textarea>
+            <div class="form-hint">Pisahkan beberapa pesan dengan tanda &nbsp;·&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── CARDS ──────────────────────────────────────────── -->
+  <div class="ds-section" id="cards">
+    <div class="ds-section-eyebrow">Komponen</div>
+    <div class="ds-section-title">Card</div>
+    <div class="ds-section-desc">Card digunakan untuk mengelompokkan konten terkait. Stat card digunakan di dashboard untuk menampilkan angka ringkasan.</div>
+
+    <div class="ds-grid-4 mb-4">
+      <div class="stat-card">
+        <div class="stat-card-label">Total layar</div>
+        <div class="stat-card-value">7</div>
+        <div class="stat-card-delta"><i class="ti ti-arrow-up-right"></i> 5 online sekarang</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Konten media</div>
+        <div class="stat-card-value">34</div>
+        <div class="stat-card-delta"><i class="ti ti-arrow-up-right"></i> 3 baru minggu ini</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Jadwal aktif</div>
+        <div class="stat-card-value">12</div>
+        <div class="stat-card-delta" style="color:var(--amber-700)"><i class="ti ti-clock"></i> 2 akan expired</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Ticker aktif</div>
+        <div class="stat-card-value">3</div>
+        <div class="stat-card-delta"><i class="ti ti-marquee"></i> Running now</div>
+      </div>
+    </div>
+
+    <div class="ds-grid-2">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header-title">Jadwal hari ini</span>
+          <button class="btn btn-ghost btn-sm">Lihat semua</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="table">
+            <thead><tr><th>Waktu</th><th>Playlist</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td style="color:var(--text-muted);font-size:12px;font-variant-numeric:tabular-nums">08:00–10:00</td><td><div style="font-size:13px;font-weight:500">Promo Tabungan</div><div style="font-size:11px;color:var(--text-muted)">3 layar</div></td><td><span class="badge badge-blue"><span class="badge-dot"></span>Aktif</span></td></tr>
+              <tr><td style="color:var(--text-muted);font-size:12px;font-variant-numeric:tabular-nums">10:00–12:00</td><td><div style="font-size:13px;font-weight:500">Info Deposito</div><div style="font-size:11px;color:var(--text-muted)">5 layar</div></td><td><span class="badge badge-gray">Menunggu</span></td></tr>
+              <tr><td style="color:var(--text-muted);font-size:12px;font-variant-numeric:tabular-nums">12:00–17:00</td><td><div style="font-size:13px;font-weight:500">Promo Kredit UMKM</div><div style="font-size:11px;color:var(--text-muted)">7 layar</div></td><td><span class="badge badge-gray">Menunggu</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header-title">Status layar</span>
+          <span class="badge badge-green"><span class="badge-dot"></span>5 online</span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="table">
+            <thead><tr><th>Layar</th><th>Lokasi</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td style="font-size:13px;font-weight:500">Banking Hall 1</td><td style="font-size:12px;color:var(--text-muted)">Lantai 1</td><td><span class="badge badge-green"><span class="badge-dot"></span>Online</span></td></tr>
+              <tr><td style="font-size:13px;font-weight:500">Ruang Tunggu</td><td style="font-size:12px;color:var(--text-muted)">Lantai 1</td><td><span class="badge badge-green"><span class="badge-dot"></span>Online</span></td></tr>
+              <tr><td style="font-size:13px;font-weight:500">Teller Area</td><td style="font-size:12px;color:var(--text-muted)">Lantai 1</td><td><span class="badge badge-amber"><span class="badge-dot"></span>Idle</span></td></tr>
+              <tr><td style="font-size:13px;font-weight:500">Ruang CS</td><td style="font-size:12px;color:var(--text-muted)">Lantai 2</td><td><span class="badge badge-red"><span class="badge-dot"></span>Offline</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer" style="text-align:right">
+          <button class="btn btn-ghost btn-sm">Lihat semua layar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── ALERTS ─────────────────────────────────────────── -->
+  <div class="ds-section" id="alerts">
+    <div class="ds-section-eyebrow">Komponen</div>
+    <div class="ds-section-title">Alert & Toast</div>
+
+    <div style="max-width:540px">
+      <div class="toast toast-success">
+        <i class="ti ti-circle-check"></i>
+        <div><div class="toast-title">Jadwal berhasil disimpan</div><div class="toast-desc">Promo Tabungan Gresik akan aktif mulai 08:00 hari ini di 3 layar.</div></div>
+      </div>
+      <div class="toast toast-warning">
+        <i class="ti ti-alert-triangle"></i>
+        <div><div class="toast-title">Layar Ruang CS tidak merespons</div><div class="toast-desc">Tidak ada koneksi ke layar ini sejak 2 jam lalu. Periksa koneksi jaringan.</div></div>
+      </div>
+      <div class="toast toast-danger">
+        <i class="ti ti-circle-x"></i>
+        <div><div class="toast-title">Upload gagal</div><div class="toast-desc">File melebihi batas ukuran 100 MB. Kompres file terlebih dahulu.</div></div>
+      </div>
+      <div class="toast toast-info">
+        <i class="ti ti-info-circle"></i>
+        <div><div class="toast-title">Jadwal diperbarui via SSE</div><div class="toast-desc">Semua layar aktif menerima pembaruan konten secara real-time.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── NAV ───────────────────────────────────────────── -->
+  <div class="ds-section" id="nav">
+    <div class="ds-section-eyebrow">Komponen</div>
+    <div class="ds-section-title">Navigasi Sidebar</div>
+
+    <div style="display:flex;gap:var(--space-5);align-items:flex-start">
+      <div class="nav-demo">
+        <div class="nav-logo-area">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:28px;height:28px;background:var(--blue-700);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-device-tv" style="font-size:15px;color:white"></i></div>
+            <div><div style="font-size:13px;font-weight:600;line-height:1.2">Signage BG</div><div style="font-size:10px;color:var(--text-muted)">BPR Bank Gresik</div></div>
+          </div>
+        </div>
+        <div class="nav-item active"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+        <div class="nav-section-label">Konten</div>
+        <div class="nav-item"><i class="ti ti-photo"></i> Library</div>
+        <div class="nav-item"><i class="ti ti-playlist"></i> Playlist</div>
+        <div class="nav-item"><i class="ti ti-calendar"></i> Jadwal<span class="nav-badge">3</span></div>
+        <div class="nav-section-label">Layar</div>
+        <div class="nav-item"><i class="ti ti-device-tv"></i> Semua layar</div>
+        <div class="nav-item"><i class="ti ti-layout"></i> Layout zone</div>
+        <div class="nav-item"><i class="ti ti-marquee"></i> Ticker</div>
+        <div class="nav-section-label">Sistem</div>
+        <div class="nav-item"><i class="ti ti-settings"></i> Pengaturan</div>
+      </div>
+      <div class="ds-code" style="flex:1;align-self:stretch">
+<span class="c-comment">/* Sidebar nav — struktur HTML */</span>
+<span class="c-key">&lt;nav</span> class=<span class="c-str">"app-sidebar"</span><span class="c-key">&gt;</span>
+
+  <span class="c-comment">&lt;!-- Logo area --&gt;</span>
+  <span class="c-key">&lt;div</span> class=<span class="c-str">"nav-logo-area"</span><span class="c-key">&gt;</span>...&lt;/div&gt;
+
+  <span class="c-comment">&lt;!-- Nav item aktif --&gt;</span>
+  <span class="c-key">&lt;a</span> href=<span class="c-str">"/admin"</span> class=<span class="c-str">"nav-item active"</span><span class="c-key">&gt;</span>
+    &lt;i class="ti ti-layout-dashboard"&gt;&lt;/i&gt;
+    Dashboard
+  <span class="c-key">&lt;/a&gt;</span>
+
+  <span class="c-comment">&lt;!-- Section label --&gt;</span>
+  <span class="c-key">&lt;div</span> class=<span class="c-str">"nav-section-label"</span><span class="c-key">&gt;</span>Konten<span class="c-key">&lt;/div&gt;</span>
+
+  <span class="c-comment">&lt;!-- Nav item dengan badge --&gt;</span>
+  <span class="c-key">&lt;a</span> href=<span class="c-str">"/admin/schedules"</span> class=<span class="c-str">"nav-item"</span><span class="c-key">&gt;</span>
+    &lt;i class="ti ti-calendar"&gt;&lt;/i&gt;
+    Jadwal
+    &lt;span class="nav-badge"&gt;3&lt;/span&gt;
+  <span class="c-key">&lt;/a&gt;</span>
+
+<span class="c-key">&lt;/nav&gt;</span></div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── SCREEN CARDS ───────────────────────────────────── -->
+  <div class="ds-section" id="screen-cards">
+    <div class="ds-section-eyebrow">Pola UI</div>
+    <div class="ds-section-title">Screen Card</div>
+    <div class="ds-section-desc">Kartu layar digunakan di halaman manajemen layar. Thumbnail menampilkan pratinjau konten aktual dengan ticker strip di bagian bawah.</div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)">
+      <div class="screen-card selected">
+        <div class="screen-thumb">
+          <div class="screen-thumb-body"><i class="ti ti-photo" style="font-size:28px;opacity:.3"></i></div>
+          <div class="screen-thumb-ticker"><span class="screen-ticker-label">INFO</span> Suku bunga tabungan 4.25% p.a. · BPR Bank Gresik</div>
+        </div>
+        <div class="screen-info">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div class="screen-name">Banking Hall 1</div>
+            <span class="badge badge-green" style="font-size:10px"><span class="badge-dot"></span>Online</span>
+          </div>
+          <div class="screen-meta"><i class="ti ti-map-pin"></i> Lantai 1 · Full HD · L-Shape</div>
+        </div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-thumb">
+          <div class="screen-thumb-body"><i class="ti ti-photo" style="font-size:28px;opacity:.3"></i></div>
+          <div class="screen-thumb-ticker"><span class="screen-ticker-label">INFO</span> Deposito mulai Rp 5 juta · Bunga kompetitif</div>
+        </div>
+        <div class="screen-info">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div class="screen-name">Ruang Tunggu</div>
+            <span class="badge badge-amber" style="font-size:10px"><span class="badge-dot"></span>Idle</span>
+          </div>
+          <div class="screen-meta"><i class="ti ti-map-pin"></i> Lantai 1 · Full HD · Fullscreen</div>
+        </div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-thumb" style="background:#0A0F1E">
+          <div class="screen-thumb-body" style="flex-direction:column;gap:6px">
+            <i class="ti ti-device-tv-off" style="font-size:28px;opacity:.25"></i>
+            <span style="font-size:10px;opacity:.4">Tidak merespons</span>
+          </div>
+          <div class="screen-thumb-ticker" style="background:#050505"><span class="screen-ticker-label" style="background:#555">INFO</span> --</div>
+        </div>
+        <div class="screen-info">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div class="screen-name">Ruang CS</div>
+            <span class="badge badge-red" style="font-size:10px"><span class="badge-dot"></span>Offline</span>
+          </div>
+          <div class="screen-meta"><i class="ti ti-map-pin"></i> Lantai 2 · Terakhir aktif 2j lalu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-section-divider">
+
+  <!-- ── PLAYER DISPLAY ─────────────────────────────────── -->
+  <div class="ds-section" id="player">
+    <div class="ds-section-eyebrow">Pola UI</div>
+    <div class="ds-section-title">Player Display</div>
+    <div class="ds-section-desc">Tampilan player fullscreen yang ditampilkan di TV/monitor. Menggunakan Bricolage Grotesque dan palet gelap. Terdiri dari topbar, main zone, sidebar zone, dan ticker strip. Jam ditampilkan real-time.</div>
+
+    <div class="player-demo" style="border:1px solid var(--border)">
+      <div class="player-topbar">
+        <i class="ti ti-device-tv" style="font-size:14px;color:var(--blue-500)"></i>
+        <span class="player-topbar-name">Banking Hall 1 &nbsp;·&nbsp; /player/banking-hall-1</span>
+        <span class="player-topbar-time" id="player-clock-main">08:47:22</span>
+      </div>
+      <div class="player-body">
+        <div class="player-main">
+          <div class="player-eyebrow">Tabungan unggulan</div>
+          <div class="player-headline">Tabungan Gresik<br>Bunga Kompetitif</div>
+          <div class="player-rate">4,25% p.a.</div>
+          <div class="player-sub">Setoran awal mulai Rp 100.000<br>Bebas biaya administrasi</div>
+          <button class="player-cta">Buka rekening sekarang</button>
+        </div>
+        <div class="player-sidebar">
+          <div class="player-clock">
+            <div class="player-clock-time" id="player-clock-side">08:47</div>
+            <div class="player-clock-date">Kamis, 13 Agustus 2026</div>
+          </div>
+          <div class="player-info-box">
+            <div class="player-info-title">Suku bunga hari ini</div>
+            <div class="player-info-row"><span>Tabungan</span><span class="player-info-val">4,25%</span></div>
+            <div class="player-info-row"><span>Deposito 3 bln</span><span class="player-info-val">6,50%</span></div>
+            <div class="player-info-row"><span>Deposito 6 bln</span><span class="player-info-val">7,00%</span></div>
+            <div class="player-info-row"><span>Deposito 12 bln</span><span class="player-info-val">7,25%</span></div>
+          </div>
+          <div class="player-info-box">
+            <div class="player-info-title">Jam layanan</div>
+            <div class="player-info-row"><span>Senin – Jumat</span><span class="player-info-val">08–15</span></div>
+            <div class="player-info-row"><span>Sabtu</span><span class="player-info-val">08–12</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="player-ticker">
+        <div class="player-ticker-label">INFO</div>
+        <div class="player-ticker-text">BPR Bank Gresik terdaftar dan diawasi oleh OJK &nbsp;&nbsp;·&nbsp;&nbsp; Deposito dijamin LPS hingga Rp 2 miliar &nbsp;&nbsp;·&nbsp;&nbsp; Kredit UMKM bunga rendah mulai 0,9% per bulan &nbsp;&nbsp;·&nbsp;&nbsp; Hubungi CS kami di ext. 100 &nbsp;&nbsp;·&nbsp;&nbsp; BPR Bank Gresik terdaftar dan diawasi oleh OJK &nbsp;&nbsp;·&nbsp;&nbsp; Deposito dijamin LPS hingga Rp 2 miliar &nbsp;&nbsp;·&nbsp;&nbsp; Kredit UMKM bunga rendah mulai 0,9% per bulan</div>
+      </div>
+    </div>
+
+    <div class="ds-card mt-4">
+      <div class="ds-card-header"><span class="ds-card-title">CSS penting untuk player</span></div>
+      <div class="ds-card-body">
+        <div class="ds-code"><span class="c-comment">/* Player layout — fullscreen di TV */</span>
+<span class="c-key">.player-page</span> {
+  <span class="c-key">position</span>: <span class="c-val">fixed</span>;
+  <span class="c-key">inset</span>: <span class="c-val">0</span>;
+  <span class="c-key">display</span>: <span class="c-val">flex</span>;
+  <span class="c-key">flex-direction</span>: <span class="c-val">column</span>;
+  <span class="c-key">background</span>: <span class="c-num">#000</span>;
+  <span class="c-key">overflow</span>: <span class="c-val">hidden</span>;
+}
+
+<span class="c-comment">/* Rate besar — menggunakan Bricolage Grotesque + gold */</span>
+<span class="c-key">.rate-display</span> {
+  <span class="c-key">font-family</span>: <span class="c-val">var(--font-display)</span>;
+  <span class="c-key">font-size</span>: <span class="c-num">clamp(36px, 6vw, 72px)</span>;
+  <span class="c-key">font-weight</span>: <span class="c-num">700</span>;
+  <span class="c-key">color</span>: <span class="c-val">var(--gold-200)</span>;  <span class="c-comment">/* #FCD34D */</span>
+  <span class="c-key">letter-spacing</span>: <span class="c-val">-.02em</span>;
+}
+
+<span class="c-comment">/* Ticker animasi — konten harus 2× panjang untuk seamless loop */</span>
+<span class="c-key">@keyframes</span> ticker-scroll {
+  <span class="c-key">from</span> { <span class="c-key">transform</span>: <span class="c-val">translateX(0)</span> }
+  <span class="c-key">to</span>   { <span class="c-key">transform</span>: <span class="c-val">translateX(-50%)</span> }
+}
+<span class="c-key">.ticker-text</span> {
+  <span class="c-key">white-space</span>: <span class="c-val">nowrap</span>;
+  <span class="c-key">animation</span>: <span class="c-val">ticker-scroll 22s linear infinite</span>;
+}</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Back to top -->
+<button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Ke atas">
+  <i class="ti ti-arrow-up"></i>
+</button>
+
+<script>
+function updateClock() {
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  const hh = pad(now.getHours()), mm = pad(now.getMinutes()), ss = pad(now.getSeconds());
+  const m = document.getElementById('player-clock-main');
+  const s = document.getElementById('player-clock-side');
+  if (m) m.textContent = hh+':'+mm+':'+ss;
+  if (s) s.textContent = hh+':'+mm;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+const navLinks = document.querySelectorAll('.doc-nav a');
+const sections = document.querySelectorAll('.ds-section[id], .ds-hero[id]');
+
+function onScroll() {
+  let active = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 100) active = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+</body>
+</html>
