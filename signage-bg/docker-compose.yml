@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: signage-bg-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: mysql://signage:password@db:3306/signage_bg
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-change-this-secret}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://10.100.0.XX}
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - media_uploads:/app/uploads
+    networks:
+      - signage-net
+    depends_on:
+      - db
+
+  # One-off: `docker compose run --rm migrate` — jalankan setelah `db` up
+  # dan setiap kali ada perubahan schema.prisma. Pakai stage `builder` karena
+  # image runner (standalone) sengaja tidak menyertakan Prisma CLI.
+  migrate:
+    build:
+      context: .
+      target: builder
+    environment:
+      DATABASE_URL: mysql://signage:password@db:3306/signage_bg
+    command: ["npx", "prisma", "migrate", "deploy"]
+    networks:
+      - signage-net
+    depends_on:
+      - db
+    profiles:
+      - tools
+
+  db:
+    image: mysql:8
+    container_name: signage-bg-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: signage_bg
+      MYSQL_USER: signage
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - signage-net
+
+volumes:
+  media_uploads:
+  mysql_data:
+
+networks:
+  signage-net:
+    driver: bridge

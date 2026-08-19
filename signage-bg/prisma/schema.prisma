@@ -1,0 +1,185 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  OPERATOR
+}
+
+enum ContentType {
+  IMAGE
+  VIDEO
+}
+
+enum ContentCategory {
+  PROMO
+  INFO
+  EVENT
+  IDLE
+}
+
+enum ScheduleStatus {
+  DRAFT
+  ACTIVE
+  EXPIRED
+}
+
+enum ScreenStatus {
+  ONLINE
+  OFFLINE
+  IDLE
+}
+
+enum SchedulePriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  role         UserRole @default(OPERATOR)
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  activityLogs ActivityLog[]
+
+  @@map("users")
+}
+
+model Screen {
+  id         String       @id @default(cuid())
+  name       String
+  slug       String       @unique
+  location   String
+  status     ScreenStatus @default(OFFLINE)
+  layoutId   String
+  lastSeenAt DateTime?
+  createdAt  DateTime     @default(now())
+
+  layout    Layout     @relation(fields: [layoutId], references: [id])
+  schedules Schedule[]
+
+  @@index([layoutId])
+  @@map("screens")
+}
+
+model Content {
+  id        String          @id @default(cuid())
+  name      String
+  type      ContentType
+  filePath  String
+  mimeType  String
+  duration  Int             @default(10)
+  sizeBytes Int
+  category  ContentCategory @default(INFO)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  playlistItems PlaylistItem[]
+
+  @@map("contents")
+}
+
+model Playlist {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  items     PlaylistItem[]
+  schedules Schedule[]
+
+  @@map("playlists")
+}
+
+model PlaylistItem {
+  id               String  @id @default(cuid())
+  playlistId       String
+  contentId        String
+  order            Int
+  durationOverride Int?
+
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  content  Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([playlistId])
+  @@index([contentId])
+  @@map("playlist_items")
+}
+
+model Schedule {
+  id         String           @id @default(cuid())
+  screenId   String
+  playlistId String
+  startAt    DateTime
+  endAt      DateTime
+  priority   SchedulePriority @default(MEDIUM)
+  status     ScheduleStatus   @default(DRAFT)
+  createdAt  DateTime         @default(now())
+
+  screen   Screen   @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+
+  @@index([screenId])
+  @@index([playlistId])
+  @@index([status])
+  @@map("schedules")
+}
+
+model Ticker {
+  id        String   @id @default(cuid())
+  text      String
+  speed     Int      @default(60)
+  color     String   @default("#FFFFFF")
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("tickers")
+}
+
+model Layout {
+  id        String   @id @default(cuid())
+  name      String
+  zones     Json
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  screens Screen[]
+
+  @@map("layouts")
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  entity    String
+  entityId  String
+  meta      Json?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([entity])
+  @@map("activity_logs")
+}
+
+model SystemConfig {
+  key   String @id
+  value String @db.Text
+
+  @@map("system_config")
+}

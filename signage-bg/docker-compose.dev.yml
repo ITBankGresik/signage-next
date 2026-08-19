@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: signage-bg-app-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: mysql://signage:password@db:3306/signage_bg
+      NEXTAUTH_SECRET: dev-secret-not-for-production
+      NEXTAUTH_URL: http://localhost:3000
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - signage-net
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    container_name: signage-bg-db-dev
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: signage_bg
+      MYSQL_USER: signage
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data_dev:/var/lib/mysql
+    networks:
+      - signage-net
+
+volumes:
+  mysql_data_dev:
+
+networks:
+  signage-net:
+    driver: bridge
