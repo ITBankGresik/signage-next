@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Skeleton from "@/components/ui/Skeleton";
 import type { Content, ScreenStatus } from "@/types";
 
@@ -18,6 +19,7 @@ type ScheduleRow = {
 const STATUS_BADGE: Record<ScreenStatus, string> = { ONLINE: "badge-green", IDLE: "badge-amber", OFFLINE: "badge-red" };
 
 export default function AdminDashboardPage() {
+  const router = useRouter();
   const [screens, setScreens] = useState<ScreenRow[]>([]);
   const [contentTotal, setContentTotal] = useState(0);
   const [recentContents, setRecentContents] = useState<Content[]>([]);
@@ -64,7 +66,7 @@ export default function AdminDashboardPage() {
     return (
       <div className="space-y-4">
         <Skeleton className="h-8 w-48" />
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} className="h-24" />
           ))}
@@ -74,38 +76,81 @@ export default function AdminDashboardPage() {
     );
   }
 
+  const today = new Date().toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold" style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}>
-        Dashboard
-      </h1>
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}>
+            Dashboard
+          </h1>
+          <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
+            {today}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/admin/screens" className="btn btn-secondary btn-sm">
+            <i className="ti ti-device-tv" />
+            Tambah Layar
+          </Link>
+          <Link href="/admin/contents/upload" className="btn btn-secondary btn-sm">
+            <i className="ti ti-upload" />
+            Upload Konten
+          </Link>
+          <Link href="/admin/schedules" className="btn btn-primary btn-sm">
+            <i className="ti ti-plus" />
+            Jadwal Baru
+          </Link>
+        </div>
+      </div>
 
-      <div className="mb-6 grid grid-cols-4 gap-4">
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <div className="stat-card">
-          <div className="stat-card-label">Total Layar</div>
+          <div className="stat-card-icon">
+            <i className="ti ti-device-tv" />
+          </div>
+          <div className="stat-card-label">Total layar</div>
           <div className="stat-card-value">{screens.length}</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-label">Konten Media</div>
+          <div className="stat-card-icon">
+            <i className="ti ti-photo" />
+          </div>
+          <div className="stat-card-label">Konten media</div>
           <div className="stat-card-value">{contentTotal}</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-label">Jadwal Aktif</div>
+          <div className="stat-card-icon">
+            <i className="ti ti-calendar-check" />
+          </div>
+          <div className="stat-card-label">Jadwal aktif</div>
           <div className="stat-card-value">{activeSchedules.length}</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-label">Ticker Aktif</div>
+          <div className="stat-card-icon">
+            <i className="ti ti-align-left" />
+          </div>
+          <div className="stat-card-label">Ticker aktif</div>
           <div className="stat-card-value">{activeTickerCount}</div>
         </div>
       </div>
 
       {offlineScreens.length > 0 && (
-        <div className="mb-6 rounded-lg p-4" style={{ background: "var(--red-50)", border: "1px solid var(--red-200)" }}>
-          <div className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--red-800)" }}>
+        <div
+          className="mb-6 flex flex-col gap-2 rounded-lg px-4 py-3 sm:flex-row sm:items-center sm:gap-3"
+          style={{ background: "var(--red-50)", borderLeft: "3px solid var(--red-600)" }}
+        >
+          <div className="flex items-center gap-2 text-sm font-medium flex-shrink-0" style={{ color: "var(--red-800)" }}>
             <i className="ti ti-alert-triangle" />
             {offlineScreens.length} layar sedang offline
           </div>
-          <div className="mt-2 flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             {offlineScreens.map((s) => (
               <Link key={s.id} href={`/admin/screens/${s.id}`} className="badge badge-red">
                 {s.name}
@@ -115,15 +160,18 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="card">
           <div className="card-header">
-            <span className="card-header-title">Status Layar</span>
+            <span className="card-header-title flex items-center gap-2">
+              <i className="ti ti-device-tv" style={{ color: "var(--blue-600)" }} />
+              Status Layar
+            </span>
             <Link href="/admin/screens" className="text-xs" style={{ color: "var(--text-accent)" }}>
               Lihat semua
             </Link>
           </div>
-          <div className="table-wrap">
+          <div style={{ overflowX: "auto" }}>
             <table className="table">
               <thead>
                 <tr>
@@ -141,7 +189,7 @@ export default function AdminDashboardPage() {
                   </tr>
                 ) : (
                   screens.map((s) => (
-                    <tr key={s.id}>
+                    <tr key={s.id} className="cursor-pointer" onClick={() => router.push(`/admin/screens/${s.id}`)}>
                       <td>{s.name}</td>
                       <td>{s.location}</td>
                       <td>
@@ -160,29 +208,39 @@ export default function AdminDashboardPage() {
 
         <div className="card">
           <div className="card-header">
-            <span className="card-header-title">Jadwal Hari Ini</span>
+            <span className="card-header-title flex items-center gap-2">
+              <i className="ti ti-calendar-check" style={{ color: "var(--blue-600)" }} />
+              Jadwal Hari Ini
+            </span>
             <Link href="/admin/schedules" className="text-xs" style={{ color: "var(--text-accent)" }}>
               Lihat semua
             </Link>
           </div>
-          <div className="card-body space-y-2">
+          <div style={{ padding: 0 }}>
             {todaySchedules.length === 0 ? (
-              <div className="text-sm" style={{ color: "var(--text-muted)" }}>
+              <div className="p-5 text-sm" style={{ color: "var(--text-muted)" }}>
                 Tidak ada jadwal hari ini.
               </div>
             ) : (
-              todaySchedules.map((s) => (
-                <div key={s.id} className="flex items-center justify-between text-sm">
-                  <div>
-                    <span style={{ color: "var(--text-primary)" }}>{s.playlist.name}</span>
-                    <span className="ml-2" style={{ color: "var(--text-muted)" }}>
+              todaySchedules.map((s, i) => (
+                <Link
+                  key={s.id}
+                  href="/admin/schedules"
+                  className="schedule-row flex items-center justify-between px-5 py-3 text-sm"
+                  style={i < todaySchedules.length - 1 ? { borderBottom: "1px solid var(--border)" } : undefined}
+                >
+                  <div className="min-w-0">
+                    <div className="truncate" style={{ color: "var(--text-primary)" }}>
+                      {s.playlist.name}
+                    </div>
+                    <div className="text-xs" style={{ color: "var(--text-muted)" }}>
                       {s.screen.name}
-                    </span>
+                    </div>
                   </div>
-                  <span style={{ color: "var(--text-muted)" }}>
+                  <span className="flex-shrink-0 pl-3" style={{ color: "var(--text-muted)" }}>
                     {new Date(s.startAt).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
                   </span>
-                </div>
+                </Link>
               ))
             )}
           </div>
@@ -191,34 +249,51 @@ export default function AdminDashboardPage() {
 
       <div className="card mt-4">
         <div className="card-header">
-          <span className="card-header-title">Konten Terbaru</span>
+          <span className="card-header-title flex items-center gap-2">
+            <i className="ti ti-photo" style={{ color: "var(--blue-600)" }} />
+            Konten Terbaru
+          </span>
           <Link href="/admin/contents" className="text-xs" style={{ color: "var(--text-accent)" }}>
             Lihat semua
           </Link>
         </div>
-        <div className="card-body grid grid-cols-3 gap-3">
+        <div className="card-body grid grid-cols-1 gap-3 sm:grid-cols-3">
           {recentContents.length === 0 ? (
             <div className="col-span-3 text-sm" style={{ color: "var(--text-muted)" }}>
               Belum ada konten.
             </div>
           ) : (
             recentContents.map((c) => (
-              <div key={c.id} className="flex items-center gap-2 rounded-md p-2" style={{ background: "var(--surface-1)" }}>
+              <Link
+                key={c.id}
+                href="/admin/contents"
+                className="dashboard-content-item flex items-center gap-3 rounded-md p-2 transition-colors"
+              >
                 <div
-                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-md"
+                  className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-md"
                   style={{ background: "var(--neutral-900)" }}
                 >
                   {c.type === "IMAGE" ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={c.filePath} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <i className="ti ti-video" style={{ color: "var(--neutral-500)" }} />
+                    <video
+                      src={`${c.filePath}#t=0.5`}
+                      muted
+                      preload="metadata"
+                      className="h-full w-full object-cover"
+                    />
                   )}
                 </div>
-                <div className="min-w-0 truncate text-xs" style={{ color: "var(--text-primary)" }}>
-                  {c.name}
+                <div className="min-w-0">
+                  <div className="truncate text-sm" style={{ color: "var(--text-primary)" }}>
+                    {c.name}
+                  </div>
+                  <div className="text-xs" style={{ color: "var(--text-muted)" }}>
+                    {c.type === "IMAGE" ? "Gambar" : "Video"}
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))
           )}
         </div>

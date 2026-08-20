@@ -54,7 +54,12 @@ export default function PlaylistItemRow({
           // eslint-disable-next-line @next/next/no-img-element
           <img src={item.content.filePath} alt="" className="h-full w-full object-cover" />
         ) : (
-          <i className="ti ti-video" style={{ color: "var(--neutral-500)" }} />
+          <video
+            src={`${item.content.filePath}#t=0.5`}
+            muted
+            preload="metadata"
+            className="h-full w-full object-cover"
+          />
         )}
       </div>
 

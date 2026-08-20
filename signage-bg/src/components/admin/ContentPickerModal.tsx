@@ -102,9 +102,20 @@ export default function ContentPickerModal({
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={c.filePath} alt={c.name} className="h-full w-full object-cover" />
               ) : (
-                <div className="flex h-full w-full items-center justify-center">
-                  <i className="ti ti-video" style={{ color: "var(--neutral-500)" }} />
-                </div>
+                <>
+                  <video
+                    src={`${c.filePath}#t=0.5`}
+                    muted
+                    preload="metadata"
+                    className="h-full w-full object-cover"
+                  />
+                  <div
+                    className="absolute bottom-1 left-1 flex h-5 w-5 items-center justify-center rounded-full"
+                    style={{ background: "rgba(0,0,0,0.6)" }}
+                  >
+                    <i className="ti ti-player-play-filled" style={{ color: "white", fontSize: 10 }} />
+                  </div>
+                </>
               )}
               {selected.has(c.id) && (
                 <div

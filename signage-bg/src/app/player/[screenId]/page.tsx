@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { prisma } from "@/lib/prisma"
 import { serializePlaylistItem } from "@/lib/serialize"
+import { isScheduleActiveNow } from "@/lib/schedule-time"
 import PlayerShell from "@/components/player/PlayerShell"
 import type { ZoneConfig } from "@/types"
 
@@ -15,10 +16,11 @@ async function getScreen(slugOrId: string) {
 
 async function getActivePlaylist(screenId: string) {
   const now = new Date()
-  const activeSchedules = await prisma.schedule.findMany({
-    where: { screenId, status: "ACTIVE", startAt: { lte: now }, endAt: { gte: now } },
+  const candidates = await prisma.schedule.findMany({
+    where: { screenId, status: "ACTIVE" },
     include: { playlist: { include: { items: { orderBy: { order: "asc" }, include: { content: true } } } } },
   })
+  const activeSchedules = candidates.filter((s) => isScheduleActiveNow(s, now))
 
   const priorityRank: Record<string, number> = { LOW: 0, MEDIUM: 1, HIGH: 2 }
   if (activeSchedules.length > 0) {
@@ -59,9 +61,10 @@ export default async function PlayerPage({
   const screen = await getScreen(params.screenId)
   if (!screen) notFound()
 
-  const [playlist, tickers] = await Promise.all([
+  const [playlist, tickers, systemNameConfig] = await Promise.all([
     getActivePlaylist(screen.id),
     prisma.ticker.findMany({ where: { isActive: true }, orderBy: { order: "asc" } }),
+    prisma.systemConfig.findUnique({ where: { key: "systemName" } }),
   ])
 
   return (
@@ -70,6 +73,7 @@ export default async function PlayerPage({
       zones={screen.layout.zones as unknown as ZoneConfig}
       initialPlaylist={playlist}
       initialTickers={tickers.map((t) => ({ ...t, createdAt: t.createdAt.toISOString() }))}
+      systemName={systemNameConfig?.value ?? "BPR Bank Gresik"}
     />
   )
 }

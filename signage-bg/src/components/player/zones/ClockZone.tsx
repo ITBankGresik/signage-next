@@ -44,7 +44,7 @@ export default function ClockZone(): React.ReactElement {
       <div
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "clamp(60px, 16vw, 160px)",
+          fontSize: "clamp(60px, 8vw, 140px)",
           fontWeight: 700,
           color: "#E2E8F0",
           letterSpacing: "0.02em",

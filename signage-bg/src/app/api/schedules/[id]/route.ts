@@ -26,6 +26,8 @@ const patchSchema = z.object({
   endAt: z.coerce.date().optional(),
   priority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional(),
   status: z.enum(["DRAFT", "ACTIVE", "EXPIRED"]).optional(),
+  recurrence: z.enum(["ONCE", "DAILY"]).optional(),
+  recurrenceUntil: z.coerce.date().nullable().optional(),
 })
 
 export async function PATCH(

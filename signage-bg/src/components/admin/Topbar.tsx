@@ -18,7 +18,13 @@ const labelMap: Record<string, string> = {
   preview: "Preview",
 };
 
-export default function Topbar({ action }: { action?: React.ReactNode }) {
+export default function Topbar({
+  action,
+  onMenuClick,
+}: {
+  action?: React.ReactNode;
+  onMenuClick?: () => void;
+}) {
   const pathname = usePathname();
   const { data: session } = useSession();
 
@@ -26,31 +32,45 @@ export default function Topbar({ action }: { action?: React.ReactNode }) {
 
   return (
     <header
-      className="sticky top-0 z-10 flex items-center justify-between px-6"
+      className="sticky top-0 z-20 flex items-center justify-between gap-2 px-4 sm:px-6"
       style={{
         height: "var(--topbar-h)",
         background: "var(--surface-2)",
         borderBottom: "1px solid var(--border)",
       }}
     >
-      <div className="flex items-center gap-1 text-sm" style={{ color: "var(--text-secondary)" }}>
-        {segments.map((seg, i) => (
-          <span key={i} className="flex items-center gap-1">
-            {i > 0 && <i className="ti ti-chevron-right" style={{ fontSize: 12 }} />}
-            <span
-              style={
-                i === segments.length - 1
-                  ? { color: "var(--text-primary)", fontWeight: 500 }
-                  : undefined
-              }
-            >
-              {labelMap[seg] ?? seg}
+      <div className="flex min-w-0 items-center gap-2">
+        {onMenuClick && (
+          <button
+            className="btn btn-ghost btn-icon-only flex-shrink-0 lg:hidden"
+            onClick={onMenuClick}
+            aria-label="Buka menu"
+          >
+            <i className="ti ti-menu-2" />
+          </button>
+        )}
+        <div
+          className="flex min-w-0 items-center gap-1 overflow-x-auto text-sm"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          {segments.map((seg, i) => (
+            <span key={i} className="flex flex-shrink-0 items-center gap-1">
+              {i > 0 && <i className="ti ti-chevron-right" style={{ fontSize: 12 }} />}
+              <span
+                style={
+                  i === segments.length - 1
+                    ? { color: "var(--text-primary)", fontWeight: 500 }
+                    : undefined
+                }
+              >
+                {labelMap[seg] ?? seg}
+              </span>
             </span>
-          </span>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-shrink-0 items-center gap-3">
         {action}
         <button className="btn btn-ghost btn-icon-only" aria-label="Notifikasi">
           <i className="ti ti-bell" />

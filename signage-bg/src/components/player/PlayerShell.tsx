@@ -33,15 +33,18 @@ type PlayerShellProps = {
   zones: ZoneConfig
   initialPlaylist: PlayerPlaylist
   initialTickers: Ticker[]
+  systemName: string
 }
 
 const HEARTBEAT_INTERVAL_MS = 30000
+const FALLBACK_POLL_MS = 60000
 
 export default function PlayerShell({
   screenId,
   zones,
   initialPlaylist,
   initialTickers,
+  systemName,
 }: PlayerShellProps): React.ReactElement {
   const [playlist, setPlaylist] = useState<PlayerPlaylist>(initialPlaylist)
   const [tickers, setTickers] = useState<Ticker[]>(initialTickers)
@@ -112,6 +115,14 @@ export default function PlayerShell({
   }, [screenId, refetchPlaylist, refetchTickers])
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      refetchPlaylist()
+      refetchTickers()
+    }, FALLBACK_POLL_MS)
+    return () => clearInterval(interval)
+  }, [refetchPlaylist, refetchTickers])
+
+  useEffect(() => {
     function sendHeartbeat(): void {
       fetch(`/api/screens/${screenId}/heartbeat`, { method: "POST" }).catch(() => {
         // heartbeat failure is silent; scheduler will mark offline after timeout
@@ -134,7 +145,7 @@ export default function PlayerShell({
       <div style={{ flex: 1, display: "flex", flexDirection: direction, minHeight: 0 }}>
         {bodyZones.map((zone) => (
           <div key={zone.id} style={zoneWrapperStyle(zone, direction)}>
-            {renderZone(zone, playlist)}
+            {renderZone(zone, playlist, systemName)}
           </div>
         ))}
       </div>
@@ -156,10 +167,10 @@ function zoneWrapperStyle(zone: Zone, direction: "row" | "column"): React.CSSPro
   return { flex: `0 0 ${size}`, minWidth: 0, minHeight: 0 }
 }
 
-function renderZone(zone: Zone, playlist: PlayerPlaylist): React.ReactElement {
+function renderZone(zone: Zone, playlist: PlayerPlaylist, systemName: string): React.ReactElement {
   switch (zone.type) {
     case "main":
-      return <MainZone playlist={playlist} />
+      return <MainZone playlist={playlist} systemName={systemName} />
     case "sidebar":
       return <SidebarZone />
     case "clock":

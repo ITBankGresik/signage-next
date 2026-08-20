@@ -11,6 +11,16 @@ function toLocalInput(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
+function toDateInput(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+function toTimeInput(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
 export default function ScheduleFormModal({
   open,
   onClose,
@@ -26,6 +36,11 @@ export default function ScheduleFormModal({
   const [playlistId, setPlaylistId] = useState("");
   const [startAt, setStartAt] = useState(toLocalInput(new Date()));
   const [endAt, setEndAt] = useState(toLocalInput(new Date(Date.now() + 3600_000)));
+  const [recurrence, setRecurrence] = useState<"ONCE" | "DAILY">("ONCE");
+  const [dailyStartTime, setDailyStartTime] = useState(toTimeInput(new Date()));
+  const [dailyEndTime, setDailyEndTime] = useState(toTimeInput(new Date(Date.now() + 3600_000)));
+  const [effectiveFrom, setEffectiveFrom] = useState(toDateInput(new Date()));
+  const [effectiveUntil, setEffectiveUntil] = useState("");
   const [priority, setPriority] = useState<"LOW" | "MEDIUM" | "HIGH">("MEDIUM");
   const [status, setStatus] = useState<"DRAFT" | "ACTIVE">("ACTIVE");
   const [saving, setSaving] = useState(false);
@@ -43,17 +58,32 @@ export default function ScheduleFormModal({
     setError(null);
     setSaving(true);
 
+    const payload =
+      recurrence === "ONCE"
+        ? {
+            screenId,
+            playlistId,
+            startAt: new Date(startAt).toISOString(),
+            endAt: new Date(endAt).toISOString(),
+            priority,
+            status,
+            recurrence,
+          }
+        : {
+            screenId,
+            playlistId,
+            startAt: new Date(`${effectiveFrom}T${dailyStartTime}`).toISOString(),
+            endAt: new Date(`${effectiveFrom}T${dailyEndTime}`).toISOString(),
+            priority,
+            status,
+            recurrence,
+            recurrenceUntil: effectiveUntil ? new Date(`${effectiveUntil}T23:59:59`).toISOString() : undefined,
+          };
+
     const res = await fetch("/api/schedules", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        screenId,
-        playlistId,
-        startAt: new Date(startAt).toISOString(),
-        endAt: new Date(endAt).toISOString(),
-        priority,
-        status,
-      }),
+      body: JSON.stringify(payload),
     });
 
     setSaving(false);
@@ -115,30 +145,103 @@ export default function ScheduleFormModal({
             ))}
           </select>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div className="form-group">
-            <label className="form-label" htmlFor="sch-start">Mulai</label>
-            <input
-              id="sch-start"
-              type="datetime-local"
-              className="input"
-              value={startAt}
-              onChange={(e) => setStartAt(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label className="form-label" htmlFor="sch-end">Selesai</label>
-            <input
-              id="sch-end"
-              type="datetime-local"
-              className="input"
-              value={endAt}
-              onChange={(e) => setEndAt(e.target.value)}
-              required
-            />
+        <div className="form-group">
+          <label className="form-label">Tipe Jadwal</label>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              className={recurrence === "ONCE" ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+              onClick={() => setRecurrence("ONCE")}
+            >
+              Sekali
+            </button>
+            <button
+              type="button"
+              className={recurrence === "DAILY" ? "btn btn-primary btn-sm" : "btn btn-secondary btn-sm"}
+              onClick={() => setRecurrence("DAILY")}
+            >
+              Harian
+            </button>
           </div>
         </div>
+
+        {recurrence === "ONCE" ? (
+          <div className="grid grid-cols-2 gap-3">
+            <div className="form-group">
+              <label className="form-label" htmlFor="sch-start">Mulai</label>
+              <input
+                id="sch-start"
+                type="datetime-local"
+                className="input"
+                value={startAt}
+                onChange={(e) => setStartAt(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor="sch-end">Selesai</label>
+              <input
+                id="sch-end"
+                type="datetime-local"
+                className="input"
+                value={endAt}
+                onChange={(e) => setEndAt(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="form-group">
+                <label className="form-label" htmlFor="sch-daily-start">Jam Mulai</label>
+                <input
+                  id="sch-daily-start"
+                  type="time"
+                  className="input"
+                  value={dailyStartTime}
+                  onChange={(e) => setDailyStartTime(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="sch-daily-end">Jam Selesai</label>
+                <input
+                  id="sch-daily-end"
+                  type="time"
+                  className="input"
+                  value={dailyEndTime}
+                  onChange={(e) => setDailyEndTime(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="form-group">
+                <label className="form-label" htmlFor="sch-effective-from">Berlaku Dari</label>
+                <input
+                  id="sch-effective-from"
+                  type="date"
+                  className="input"
+                  value={effectiveFrom}
+                  onChange={(e) => setEffectiveFrom(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="sch-effective-until">Berlaku Sampai (opsional)</label>
+                <input
+                  id="sch-effective-until"
+                  type="date"
+                  className="input"
+                  value={effectiveUntil}
+                  onChange={(e) => setEffectiveUntil(e.target.value)}
+                />
+                <div className="form-hint">Kosongkan untuk berlaku tanpa batas.</div>
+              </div>
+            </div>
+          </>
+        )}
         <div className="grid grid-cols-2 gap-3">
           <div className="form-group">
             <label className="form-label" htmlFor="sch-priority">Prioritas</label>

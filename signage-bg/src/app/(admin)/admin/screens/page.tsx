@@ -124,20 +124,12 @@ export default function ScreensPage() {
             <div key={screen.id} className="screen-card">
               <Link href={`/admin/screens/${screen.id}`}>
                 <div className="screen-thumb">
-                  <div className="screen-thumb-body">
-                    {screen.status === "OFFLINE" ? (
-                      <div className="flex flex-col items-center gap-2">
-                        <i className="ti ti-device-tv-off" style={{ fontSize: 28, opacity: 0.25 }} />
-                        <span style={{ fontSize: 10, opacity: 0.4 }}>Tidak merespons</span>
-                      </div>
-                    ) : (
-                      <i className="ti ti-device-tv" style={{ fontSize: 28, opacity: 0.3 }} />
-                    )}
-                  </div>
-                  <div className="screen-thumb-ticker">
-                    <span className="screen-ticker-label">INFO</span>
-                    {screen.slug}
-                  </div>
+                  <iframe
+                    src={`/player/${screen.slug}`}
+                    title={`Live preview ${screen.name}`}
+                    loading="lazy"
+                    style={{ width: "100%", height: "100%", border: "none", pointerEvents: "none" }}
+                  />
                 </div>
                 <div className="screen-info">
                   <div className="mb-1 flex items-center justify-between">

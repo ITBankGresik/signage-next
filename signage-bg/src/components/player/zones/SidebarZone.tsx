@@ -8,6 +8,7 @@ const RATES_REFRESH_MS = 30 * 60 * 1000 // 30 minutes
 type ExchangeRates = {
   fetchedAt: string
   rates: Record<string, number>
+  prevClose: Record<string, number>
 }
 
 type OfficeHourRow = { label: string; hours: string }
@@ -160,14 +161,25 @@ export default function SidebarZone(): React.ReactElement {
       {rates && (
         <div className="player-info-box">
           <div className="player-info-title">Kurs mata uang (referensi)</div>
-          {Object.entries(rates.rates).map(([currency, value]) => (
-            <div className="player-info-row" key={currency}>
-              <span>{CURRENCY_LABEL[currency] ?? currency}</span>
-              <span className="player-info-val">
-                Rp {formatRupiah(currency === "JPY" ? value * 100 : value)}
-              </span>
-            </div>
-          ))}
+          {Object.entries(rates.rates).map(([currency, value]) => {
+            const prev = rates.prevClose[currency]
+            const hasChange = typeof prev === "number" && prev > 0
+            const multiplier = currency === "JPY" ? 100 : 1
+            const diff = hasChange ? (value - prev) * multiplier : 0
+            return (
+              <div className="player-info-row" key={currency}>
+                <span>{CURRENCY_LABEL[currency] ?? currency}</span>
+                <span className="player-info-val" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  Rp {formatRupiah(value * multiplier)}
+                  {hasChange && Math.abs(diff) >= 1 && (
+                    <span style={{ color: diff >= 0 ? "#22C55E" : "#EF4444", fontWeight: 700, fontSize: 10 }}>
+                      {diff >= 0 ? "▲" : "▼"} Rp {formatRupiah(Math.abs(diff))}
+                    </span>
+                  )}
+                </span>
+              </div>
+            )
+          })}
         </div>
       )}
       {stocks && (

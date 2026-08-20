@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import { prisma } from "@/lib/prisma"
 import { serializePlaylistItem } from "@/lib/serialize"
+import { isScheduleActiveNow } from "@/lib/schedule-time"
 
 const PRIORITY_RANK: Record<string, number> = { LOW: 0, MEDIUM: 1, HIGH: 2 }
 
@@ -20,19 +21,16 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const { screenId } = parsed.data
   const now = new Date()
 
-  const activeSchedules = await prisma.schedule.findMany({
-    where: {
-      screenId,
-      status: "ACTIVE",
-      startAt: { lte: now },
-      endAt: { gte: now },
-    },
+  const candidates = await prisma.schedule.findMany({
+    where: { screenId, status: "ACTIVE" },
     include: {
       playlist: {
         include: { items: { orderBy: { order: "asc" }, include: { content: true } } },
       },
     },
   })
+
+  const activeSchedules = candidates.filter((s) => isScheduleActiveNow(s, now))
 
   if (activeSchedules.length > 0) {
     const best = activeSchedules.reduce((top, curr) =>

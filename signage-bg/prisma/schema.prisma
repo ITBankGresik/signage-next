@@ -43,6 +43,11 @@ enum SchedulePriority {
   HIGH
 }
 
+enum ScheduleRecurrence {
+  ONCE
+  DAILY
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -119,14 +124,16 @@ model PlaylistItem {
 }
 
 model Schedule {
-  id         String           @id @default(cuid())
-  screenId   String
-  playlistId String
-  startAt    DateTime
-  endAt      DateTime
-  priority   SchedulePriority @default(MEDIUM)
-  status     ScheduleStatus   @default(DRAFT)
-  createdAt  DateTime         @default(now())
+  id              String             @id @default(cuid())
+  screenId        String
+  playlistId      String
+  startAt         DateTime
+  endAt           DateTime
+  priority        SchedulePriority   @default(MEDIUM)
+  status          ScheduleStatus     @default(DRAFT)
+  recurrence      ScheduleRecurrence @default(ONCE)
+  recurrenceUntil DateTime?
+  createdAt       DateTime           @default(now())
 
   screen   Screen   @relation(fields: [screenId], references: [id], onDelete: Cascade)
   playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)

@@ -15,24 +15,31 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const since = sinceHeader ? new Date(sinceHeader) : new Date(now.getTime() - 60_000)
 
   const expired = await prisma.schedule.findMany({
-    where: { status: "ACTIVE", endAt: { lt: now } },
+    where: { status: "ACTIVE", recurrence: "ONCE", endAt: { lt: now } },
+    select: { id: true, screenId: true },
+  })
+
+  const expiredRecurring = await prisma.schedule.findMany({
+    where: { status: "ACTIVE", recurrence: "DAILY", recurrenceUntil: { lt: now } },
     select: { id: true, screenId: true },
   })
 
   const justStarted = await prisma.schedule.findMany({
-    where: { status: "ACTIVE", startAt: { gt: since, lte: now }, endAt: { gte: now } },
+    where: { status: "ACTIVE", recurrence: "ONCE", startAt: { gt: since, lte: now }, endAt: { gte: now } },
     select: { id: true, screenId: true },
   })
 
-  if (expired.length > 0) {
+  if (expired.length + expiredRecurring.length > 0) {
     await prisma.schedule.updateMany({
-      where: { id: { in: expired.map((s) => s.id) } },
+      where: { id: { in: [...expired, ...expiredRecurring].map((s) => s.id) } },
       data: { status: "EXPIRED" },
     })
   }
 
-  if (expired.length > 0 || justStarted.length > 0) {
-    const affectedScreenIds = new Set([...expired, ...justStarted].map((s) => s.screenId))
+  if (expired.length + expiredRecurring.length + justStarted.length > 0) {
+    const affectedScreenIds = new Set(
+      [...expired, ...expiredRecurring, ...justStarted].map((s) => s.screenId)
+    )
     for (const screenId of affectedScreenIds) {
       broadcast(screenId, { type: "schedule_update" })
     }

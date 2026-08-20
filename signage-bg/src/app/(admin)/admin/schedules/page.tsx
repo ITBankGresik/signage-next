@@ -11,9 +11,26 @@ type ScheduleRow = {
   endAt: string;
   priority: "LOW" | "MEDIUM" | "HIGH";
   status: "DRAFT" | "ACTIVE" | "EXPIRED";
+  recurrence: "ONCE" | "DAILY";
+  recurrenceUntil: string | null;
   screen: { id: string; name: string };
   playlist: { id: string; name: string };
 };
+
+function formatScheduleTime(s: ScheduleRow): string {
+  if (s.recurrence === "ONCE") {
+    return (
+      new Date(s.startAt).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" }) +
+      " – " +
+      new Date(s.endAt).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })
+    );
+  }
+  const time = (d: string) => new Date(d).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+  const until = s.recurrenceUntil
+    ? `sampai ${new Date(s.recurrenceUntil).toLocaleDateString("id-ID", { dateStyle: "short" })}`
+    : "tanpa batas";
+  return `Harian ${time(s.startAt)}–${time(s.endAt)} (${until})`;
+}
 
 type Tab = "today" | "week" | "all";
 
@@ -59,7 +76,12 @@ export default function SchedulesPage() {
     if (tab === "week") {
       const now = new Date();
       const weekEnd = new Date(now.getTime() + 7 * 24 * 3600_000);
-      data = data.filter((s) => new Date(s.startAt) <= weekEnd && new Date(s.endAt) >= now);
+      data = data.filter((s) => {
+        if (s.recurrence === "DAILY") {
+          return !s.recurrenceUntil || new Date(s.recurrenceUntil) >= now;
+        }
+        return new Date(s.startAt) <= weekEnd && new Date(s.endAt) >= now;
+      });
     }
 
     setSchedules(data);
@@ -168,11 +190,7 @@ export default function SchedulesPage() {
                   <tr key={s.id}>
                     <td>{s.playlist.name}</td>
                     <td>{s.screen.name}</td>
-                    <td>
-                      {new Date(s.startAt).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })}
-                      {" – "}
-                      {new Date(s.endAt).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })}
-                    </td>
+                    <td>{formatScheduleTime(s)}</td>
                     <td>{s.priority}</td>
                     <td>
                       <span className={`badge ${STATUS_BADGE[s.status]}`}>{s.status}</span>

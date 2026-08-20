@@ -29,7 +29,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   if (date) {
     const dayStart = new Date(`${date}T00:00:00.000Z`)
     const dayEnd = new Date(`${date}T23:59:59.999Z`)
-    where.AND = [{ startAt: { lte: dayEnd } }, { endAt: { gte: dayStart } }]
+    where.OR = [
+      { recurrence: "ONCE", startAt: { lte: dayEnd }, endAt: { gte: dayStart } },
+      {
+        recurrence: "DAILY",
+        startAt: { lte: dayEnd },
+        OR: [{ recurrenceUntil: null }, { recurrenceUntil: { gte: dayStart } }],
+      },
+    ]
   }
 
   const schedules = await prisma.schedule.findMany({
@@ -49,6 +56,8 @@ const createSchema = z
     endAt: z.coerce.date(),
     priority: z.enum(["LOW", "MEDIUM", "HIGH"]).default("MEDIUM"),
     status: z.enum(["DRAFT", "ACTIVE", "EXPIRED"]).default("DRAFT"),
+    recurrence: z.enum(["ONCE", "DAILY"]).default("ONCE"),
+    recurrenceUntil: z.coerce.date().optional(),
   })
   .refine((data) => data.endAt > data.startAt, {
     message: "Waktu selesai harus setelah waktu mulai",
@@ -64,24 +73,27 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = createSchema.parse(await req.json())
 
-    const overlapping = await prisma.schedule.findFirst({
-      where: {
-        screenId: body.screenId,
-        priority: body.priority,
-        status: { in: ["DRAFT", "ACTIVE"] },
-        startAt: { lt: body.endAt },
-        endAt: { gt: body.startAt },
-      },
-    })
-
-    if (overlapping) {
-      return NextResponse.json(
-        {
-          error: "Jadwal bertabrakan dengan jadwal lain dengan prioritas sama di layar ini",
-          code: "SCHEDULE_OVERLAP",
+    if (body.recurrence === "ONCE") {
+      const overlapping = await prisma.schedule.findFirst({
+        where: {
+          screenId: body.screenId,
+          priority: body.priority,
+          status: { in: ["DRAFT", "ACTIVE"] },
+          recurrence: "ONCE",
+          startAt: { lt: body.endAt },
+          endAt: { gt: body.startAt },
         },
-        { status: 409 }
-      )
+      })
+
+      if (overlapping) {
+        return NextResponse.json(
+          {
+            error: "Jadwal bertabrakan dengan jadwal lain dengan prioritas sama di layar ini",
+            code: "SCHEDULE_OVERLAP",
+          },
+          { status: 409 }
+        )
+      }
     }
 
     const schedule = await prisma.schedule.create({ data: body })

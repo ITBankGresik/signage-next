@@ -55,9 +55,10 @@ type PlayerPlaylistItem = {
 
 type MainZoneProps = {
   playlist: { id: string; items: PlayerPlaylistItem[] } | null
+  systemName: string
 }
 
-export default function MainZone({ playlist }: MainZoneProps): React.ReactElement {
+export default function MainZone({ playlist, systemName }: MainZoneProps): React.ReactElement {
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState(true)
   const timerRef = useRef<ReturnType<typeof setTimeout>>()
@@ -98,7 +99,7 @@ export default function MainZone({ playlist }: MainZoneProps): React.ReactElemen
     const durationMs = (item?.durationOverride ?? item?.content.duration ?? 10) * 1000
     timerRef.current = setTimeout(() => {
       setVisible(false)
-      setTimeout(() => setIndex((i) => (i + 1) % items.length), 300)
+      setTimeout(() => setIndex((i) => i + 1), 300)
     }, durationMs)
 
     return () => clearTimeout(timerRef.current)
@@ -109,7 +110,7 @@ export default function MainZone({ playlist }: MainZoneProps): React.ReactElemen
     return (
       <div style={fallbackStyle}>
         <div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700, color: "#fff" }}>
-          BPR Bank Gresik
+          {systemName}
         </div>
       </div>
     )
@@ -117,7 +118,7 @@ export default function MainZone({ playlist }: MainZoneProps): React.ReactElemen
 
   function handleVideoEnded(): void {
     setVisible(false)
-    setTimeout(() => setIndex((i) => (i + 1) % items.length), 300)
+    setTimeout(() => setIndex((i) => i + 1), 300)
   }
 
   return (
@@ -138,7 +139,7 @@ export default function MainZone({ playlist }: MainZoneProps): React.ReactElemen
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         ) : (
-          <VideoItem content={item.content} onEnded={handleVideoEnded} />
+          <VideoItem key={index} content={item.content} onEnded={handleVideoEnded} />
         )}
       </div>
     </div>

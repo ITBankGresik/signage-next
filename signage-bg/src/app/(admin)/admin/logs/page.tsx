@@ -44,12 +44,12 @@ export default function ActivityLogsPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}>
           Activity Log
         </h1>
         <select
-          className="input w-48"
+          className="input w-full sm:w-48"
           value={entity}
           onChange={(e) => {
             setPage(1);
@@ -69,14 +69,14 @@ export default function ActivityLogsPage() {
         <EmptyState icon="ti-history" title="Belum ada aktivitas" />
       ) : (
         <>
-          <div className="table-wrap">
+          <div className="table-wrap hidden sm:block">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Waktu</th>
-                  <th>Pengguna</th>
-                  <th>Aksi</th>
-                  <th>Entitas</th>
+                  <th style={{ whiteSpace: "nowrap" }}>Waktu</th>
+                  <th style={{ whiteSpace: "nowrap" }}>Pengguna</th>
+                  <th style={{ whiteSpace: "nowrap" }}>Aksi</th>
+                  <th style={{ whiteSpace: "nowrap" }}>Entitas</th>
                 </tr>
               </thead>
               <tbody>
@@ -85,15 +85,38 @@ export default function ActivityLogsPage() {
                     <td style={{ whiteSpace: "nowrap" }}>
                       {new Date(log.createdAt).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })}
                     </td>
-                    <td>{log.user?.name ?? "—"}</td>
-                    <td>
+                    <td style={{ whiteSpace: "nowrap" }}>{log.user?.name ?? "—"}</td>
+                    <td style={{ whiteSpace: "nowrap" }}>
                       <span className="badge badge-gray">{log.action}</span>
                     </td>
-                    <td style={{ color: "var(--text-muted)" }}>{log.entity}</td>
+                    <td style={{ whiteSpace: "nowrap", color: "var(--text-muted)" }}>{log.entity}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+
+          <div className="space-y-2 sm:hidden">
+            {logs.map((log) => (
+              <div key={log.id} className="card">
+                <div className="card-body flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="badge badge-gray">{log.action}</span>
+                      <span className="truncate text-xs" style={{ color: "var(--text-muted)" }}>
+                        {log.entity}
+                      </span>
+                    </div>
+                    <div className="mt-1 truncate text-sm" style={{ color: "var(--text-primary)" }}>
+                      {log.user?.name ?? "—"}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0 text-right text-xs" style={{ color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                    {new Date(log.createdAt).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
           {totalPages > 1 && (
