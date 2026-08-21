@@ -14,6 +14,7 @@ const KNOWN_KEYS = [
   "fallbackPlaylistId",
   "officeHours",
   "promoBanners",
+  "tickerLogo",
 ] as const
 
 export async function GET(): Promise<NextResponse> {
@@ -32,6 +33,7 @@ const patchSchema = z.object({
     .array(z.object({ label: z.string().min(1), hours: z.string().min(1) }))
     .optional(),
   promoBanners: z.array(z.object({ contentId: z.string().min(1) })).optional(),
+  tickerLogo: z.object({ contentId: z.string().min(1) }).nullable().optional(),
 })
 
 export async function PATCH(req: NextRequest): Promise<NextResponse> {
@@ -55,6 +57,18 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
           const content = byId.get(b.contentId)!
           return { contentId: content.id, filePath: toPublicUrl(content.filePath), name: content.name }
         })
+    }
+    if (body.tickerLogo !== undefined) {
+      if (body.tickerLogo === null) {
+        resolvedBody.tickerLogo = null
+      } else {
+        const content = await prisma.content.findFirst({
+          where: { id: body.tickerLogo.contentId, type: "IMAGE" },
+        })
+        resolvedBody.tickerLogo = content
+          ? { contentId: content.id, filePath: toPublicUrl(content.filePath), name: content.name }
+          : null
+      }
     }
 
     await Promise.all(

@@ -8,6 +8,7 @@ import type { Playlist, Content } from "@/types";
 
 type OfficeHourRow = { label: string; hours: string };
 type PromoBannerRow = { contentId: string; filePath: string; name: string };
+type LogoRow = { contentId: string; filePath: string; name: string };
 
 const DEFAULT_OFFICE_HOURS: OfficeHourRow[] = [
   { label: "Senin – Jumat", hours: "08.00 – 15.00" },
@@ -21,10 +22,12 @@ export default function SettingsPage() {
   const [fallbackPlaylistId, setFallbackPlaylistId] = useState("");
   const [officeHours, setOfficeHours] = useState<OfficeHourRow[]>(DEFAULT_OFFICE_HOURS);
   const [promoBanners, setPromoBanners] = useState<PromoBannerRow[]>([]);
+  const [tickerLogo, setTickerLogo] = useState<LogoRow | null>(null);
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [logoPickerOpen, setLogoPickerOpen] = useState(false);
   const toast = useToast();
 
   useEffect(() => {
@@ -60,6 +63,14 @@ export default function SettingsPage() {
         // keep empty list if stored value is malformed
       }
     }
+    if (settings.tickerLogo) {
+      try {
+        const parsed = JSON.parse(settings.tickerLogo);
+        if (parsed && parsed.contentId) setTickerLogo(parsed);
+      } catch {
+        // keep null if stored value is malformed
+      }
+    }
     setPlaylists(playlistsJson.data ?? []);
     setLoading(false);
   }
@@ -89,6 +100,11 @@ export default function SettingsPage() {
     setPromoBanners((rows) => rows.filter((_, i) => i !== index));
   }
 
+  function selectLogo(contents: Content[]) {
+    const c = contents[0];
+    if (c) setTickerLogo({ contentId: c.id, filePath: c.filePath, name: c.name });
+  }
+
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
@@ -102,6 +118,7 @@ export default function SettingsPage() {
         fallbackPlaylistId: fallbackPlaylistId || undefined,
         officeHours: officeHours.filter((row) => row.label.trim() && row.hours.trim()),
         promoBanners: promoBanners.map((row) => ({ contentId: row.contentId })),
+        tickerLogo: tickerLogo ? { contentId: tickerLogo.contentId } : null,
       }),
     });
     setSaving(false);
@@ -249,6 +266,32 @@ export default function SettingsPage() {
             </button>
             <div className="form-hint">Bergantian otomatis di sidebar layar signage. Kosongkan semua untuk menyembunyikan.</div>
           </div>
+
+          <div className="form-group">
+            <label className="form-label">Logo di Ticker</label>
+            {tickerLogo ? (
+              <div className="mb-2 flex items-center gap-3">
+                <div
+                  className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-md border"
+                  style={{ background: "#050F1A", borderColor: "var(--neutral-200)" }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={tickerLogo.filePath} alt={tickerLogo.name} className="h-full w-full object-contain p-1" />
+                </div>
+                <button type="button" className="btn btn-ghost btn-sm" onClick={() => setTickerLogo(null)}>
+                  <i className="ti ti-trash" />
+                  Hapus
+                </button>
+              </div>
+            ) : (
+              <button type="button" className="btn btn-secondary" onClick={() => setLogoPickerOpen(true)}>
+                + Pilih Logo dari Library
+              </button>
+            )}
+            <div className="form-hint">
+              Tampil di kotak label ticker (gantikan teks &quot;INFO&quot;). Kosongkan untuk pakai teks default.
+            </div>
+          </div>
         </div>
         <div className="card-footer flex justify-end">
           <button type="submit" className="btn btn-primary" disabled={saving}>
@@ -261,6 +304,12 @@ export default function SettingsPage() {
         open={pickerOpen}
         onClose={() => setPickerOpen(false)}
         onSelect={addPromoBanners}
+        filterType="IMAGE"
+      />
+      <ContentPickerModal
+        open={logoPickerOpen}
+        onClose={() => setLogoPickerOpen(false)}
+        onSelect={selectLogo}
         filterType="IMAGE"
       />
     </div>
