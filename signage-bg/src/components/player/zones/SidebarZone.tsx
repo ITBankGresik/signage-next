@@ -8,6 +8,12 @@ const CURRENCY_LABEL: Record<string, string> = {
   SGD: "SGD",
   JPY: "JPY (100)",
 };
+const CURRENCY_FLAG: Record<string, string> = {
+  USD: "🇺🇸",
+  EUR: "🇪🇺",
+  SGD: "🇸🇬",
+  JPY: "🇯🇵",
+};
 const RATES_REFRESH_MS = 30 * 60 * 1000; // 30 minutes
 
 type ExchangeRates = {
@@ -203,7 +209,9 @@ export default function SidebarZone(): React.ReactElement {
             const diff = hasChange ? (value - prev) * multiplier : 0;
             return (
               <div className="player-info-row" key={currency}>
-                <span>{CURRENCY_LABEL[currency] ?? currency}</span>
+                <span>
+                  {CURRENCY_FLAG[currency] ?? ""} {CURRENCY_LABEL[currency] ?? currency}
+                </span>
                 <span
                   className="player-info-val"
                   style={{ display: "flex", alignItems: "center", gap: 6 }}

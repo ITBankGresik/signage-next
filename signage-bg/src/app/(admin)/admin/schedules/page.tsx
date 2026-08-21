@@ -40,12 +40,6 @@ const STATUS_BADGE: Record<string, string> = {
   EXPIRED: "badge-red",
 };
 
-const PRIORITY_COLOR: Record<string, string> = {
-  LOW: "var(--neutral-400)",
-  MEDIUM: "var(--blue-500)",
-  HIGH: "var(--gold-500)",
-};
-
 export default function SchedulesPage() {
   const [schedules, setSchedules] = useState<ScheduleRow[]>([]);
   const [screens, setScreens] = useState<{ id: string; name: string }[]>([]);
@@ -156,21 +150,47 @@ export default function SchedulesPage() {
             <div className="card-header">
               <span className="card-header-title">Timeline</span>
             </div>
-            <div className="card-body space-y-2">
-              {timelineItems.map((s) => (
-                <div key={s.id} className="flex items-center gap-2 text-xs">
-                  <span
-                    className="h-2 w-2 flex-shrink-0 rounded-full"
-                    style={{ background: PRIORITY_COLOR[s.priority] }}
-                  />
-                  <span style={{ color: "var(--text-muted)" }}>
-                    {new Date(s.startAt).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
-                  </span>
-                  <span className="truncate" style={{ color: "var(--text-primary)" }}>
-                    {s.playlist.name}
-                  </span>
-                </div>
-              ))}
+            <div className="card-body">
+              {timelineItems.map((s, i) => {
+                const isLast = i === timelineItems.length - 1;
+                const isDone = s.status === "EXPIRED";
+                const isActive = s.status === "ACTIVE";
+                const markerColor = isDone ? "var(--green-500)" : isActive ? "var(--blue-500)" : "var(--neutral-300)";
+                return (
+                  <div key={s.id} className="flex gap-3">
+                    <div className="flex flex-shrink-0 flex-col items-center">
+                      <div
+                        className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
+                        style={{
+                          background: isDone ? markerColor : "var(--surface-2)",
+                          border: `2px solid ${markerColor}`,
+                        }}
+                      >
+                        {isDone && <i className="ti ti-check" style={{ color: "white", fontSize: 12 }} />}
+                      </div>
+                      {!isLast && (
+                        <div
+                          className="w-0.5 flex-1"
+                          style={{ background: isDone ? "var(--green-500)" : "var(--border)", minHeight: 24 }}
+                        />
+                      )}
+                    </div>
+                    <div className="min-w-0 pb-5">
+                      <div className="text-xs" style={{ color: "var(--text-muted)" }}>
+                        {new Date(s.startAt).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
+                        {" – "}
+                        {new Date(s.endAt).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
+                      </div>
+                      <div className="truncate text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+                        {s.playlist.name}
+                      </div>
+                      <div className="truncate text-xs" style={{ color: "var(--text-muted)" }}>
+                        {s.screen.name}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
