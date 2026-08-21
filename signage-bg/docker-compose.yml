@@ -6,9 +6,9 @@ services:
     container_name: signage-bg-app
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3010:3000"
     environment:
-      DATABASE_URL: mysql://signage:password@db:3306/signage_bg
+      DATABASE_URL: mysql://signage:SignageBG2026!@10.100.0.110:3306/signage_bg
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-change-this-secret}
       NEXTAUTH_URL: ${NEXTAUTH_URL:-http://10.100.0.XX}
       UPLOAD_DIR: /app/uploads
@@ -16,8 +16,8 @@ services:
       - media_uploads:/app/uploads
     networks:
       - signage-net
-    depends_on:
-      - db
+  #  depends_on:
+   #   - db
 
   # One-off: `docker compose run --rm migrate` — jalankan setelah `db` up
   # dan setiap kali ada perubahan schema.prisma. Pakai stage `builder` karena
@@ -27,32 +27,33 @@ services:
       context: .
       target: builder
     environment:
-      DATABASE_URL: mysql://signage:password@db:3306/signage_bg
+      DATABASE_URL: mysql://signage:SignageBG2026!@10.100.0.110:3306/signage_bg
     command: ["npx", "prisma", "migrate", "deploy"]
     networks:
       - signage-net
-    depends_on:
-      - db
+#    depends_on:
+ #     - db
     profiles:
       - tools
 
-  db:
-    image: mysql:8
-    container_name: signage-bg-db
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: signage_bg
-      MYSQL_USER: signage
-      MYSQL_PASSWORD: password
-    volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - signage-net
+#  db:
+ #   image: mysql:8
+ #   container_name: signage-bg-db
+  #  restart: unless-stopped
+   # environment:
+     # MYSQL_ROOT_PASSWORD: rootpassword
+     # MYSQL_DATABASE: signage_bg
+     # MYSQL_USER: signage
+    #  MYSQL_PASSWORD: password
+   # volumes:
+  #    - mysql_data:/var/lib/mysql
+ #   networks:
+#      - signage-net
 
 volumes:
-  media_uploads:
-  mysql_data:
+# Update DATABASE_URL di .env
+ media_uploads:
+  # mysql_data:
 
 networks:
   signage-net:
